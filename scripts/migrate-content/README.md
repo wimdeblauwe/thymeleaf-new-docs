@@ -15,27 +15,38 @@ if an image is missing in the source), `--project`, `--report`.
 
 ## What it does
 
-- Converts 3 tutorials (one page per top-level chapter plus an `index.md`) and 10
-  articles. The file list is in `migrate.py` (`TUTORIALS`, `ARTICLES`).
-- Setext headings become ATX, heading numbers are stripped, tutorial H1 chapters
-  become the page title, `@documentVersion@` / `@projectVersion@` are resolved from
-  `build.gradle`.
+- Converts 3 tutorials and 10 articles. The file list is in `migrate.py` (`TUTORIALS`,
+  `ARTICLES`).
+- `structure.toml` maps source sections onto the pages of the docs navigation, including
+  moves, splits and merges. Its header explains the format.
+- Setext headings become ATX, heading numbers are stripped, `@documentVersion@` /
+  `@projectVersion@` are resolved from `build.gradle`. A heading that becomes a page's
+  title moves to the front matter, and the rest shift to fit.
 - Pandoc simple tables become GFM tables, `table-scroller` wrapper divs are
   removed, a Pandoc inline footnote becomes a GFM footnote.
 - Links between converted documents (absolute thymeleaf.org URLs, relative and
   in-document anchors) are mapped to the new page and heading anchor with relative
   URLs. Other thymeleaf.org links become absolute `https://www.thymeleaf.org/...`.
-- Images are copied next to the pages and referenced relatively.
-- Every page gets a CC BY-SA 3.0 source note linking the original page.
-- Writes `report.md` (word and code block comparison per source). Exit code is
-  non-zero if anything is unexplained or a link cannot be resolved.
+- Images are copied to `images/` and referenced relatively.
+- Every page gets a CC BY-SA 3.0 source note linking the original URL and anchor of each
+  of its sources. Named authors stay credited, at the top of a page or, on a merged page,
+  at the start of their section.
+- Writes `report.md`. Exit code is non-zero if a word or code block difference is
+  unexplained, a link cannot be resolved, a source line is on no page or on several, or
+  a `[[replace]]` rewording no longer matches.
 
 ## Output (overwritten on every run)
 
-`src/content/docs/docs/tutorials/{using-thymeleaf,thymeleaf-spring,extending-thymeleaf}/`
-and `src/content/docs/docs/articles/`. These folders are deleted and regenerated, so
-do not edit files there by hand. The output is deterministic: rerunning produces
-identical files.
+The folders named by `dir` in `structure.toml`, plus `images/`, below
+`src/content/docs/docs/`. Their files are deleted and regenerated, so don't edit them by
+hand. The output is deterministic: rerunning produces identical files.
+
+## Editing a page by hand
+
+Set `manual = true` on the page in `structure.toml` first. The script then keeps that
+file, and `structure.toml` records that the page no longer follows upstream. Its pieces
+stay listed, so the coverage check and links to its headings keep working. Rename a
+heading only if you update links to it. The report marks these pages as manual.
 
 ## Why check_links.py
 

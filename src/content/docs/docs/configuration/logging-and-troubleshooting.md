@@ -1,0 +1,42 @@
+---
+title: "Logging and troubleshooting"
+description: "Thymeleaf pays quite a lot of attention to logging, and always tries to offer the maximum amount of useful information through its logging interface."
+sidebar:
+  order: 3
+---
+
+Thymeleaf pays quite a lot of attention to logging, and always tries to offer
+the maximum amount of useful information through its logging interface.
+
+The logging library used is `slf4j,` which in fact acts as a bridge to whichever
+logging implementation we might want to use in our application (for example, `log4j`).
+
+Thymeleaf classes will log `TRACE`, `DEBUG` and `INFO`-level information,
+depending on the level of detail we desire, and besides general logging it will
+use three special loggers associated with the TemplateEngine class which we can
+configure separately for different purposes:
+
+ * `org.thymeleaf.TemplateEngine.CONFIG` will output detailed configuration of
+   the library during initialization.
+ * `org.thymeleaf.TemplateEngine.TIMER` will output information about the amount
+   of time taken to process each template (useful for benchmarking!)
+ * `org.thymeleaf.TemplateEngine.cache` is the prefix for a set of loggers that
+   output specific information about the caches. Although the names of the cache
+   loggers are configurable by the user and thus could change, by default they
+   are:
+    * `org.thymeleaf.TemplateEngine.cache.TEMPLATE_CACHE`
+    * `org.thymeleaf.TemplateEngine.cache.EXPRESSION_CACHE`
+
+An example configuration for Thymeleaf's logging infrastructure, using `log4j`,
+could be:
+
+```
+log4j.logger.org.thymeleaf=DEBUG
+log4j.logger.org.thymeleaf.TemplateEngine.CONFIG=TRACE
+log4j.logger.org.thymeleaf.TemplateEngine.TIMER=TRACE
+log4j.logger.org.thymeleaf.TemplateEngine.cache.TEMPLATE_CACHE=TRACE
+```
+
+---
+
+*Adapted from the [Thymeleaf documentation](https://www.thymeleaf.org/doc/tutorials/3.1/usingthymeleaf.html#logging) at thymeleaf.org, licensed under [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/).*

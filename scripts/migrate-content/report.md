@@ -6,14 +6,14 @@ Thymeleaf version: 3.1.5.RELEASE. Document version: 20260422 - 22 April 2026.
 
 ## Per source
 
-Word tokens are `\w+` runs, counted as a multiset, ignoring link and image destinations (those are rewritten on purpose). Front matter, the added author line and the added source note are excluded from the output side.
+Word tokens are `\w+` runs, counted as a multiset, ignoring link and image destinations (those are rewritten on purpose). Front matter, author lines, source notes and text added by `structure.toml` are excluded from the output side. A code block is compared as a whole, in any order, because moved sections change the order.
 
 | Source | Pages | Words in source | Words in output | Removed on purpose | Added on purpose | Unexplained difference | Code blocks src / out | Code identical |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |
-| `tutorials/3.1/usingthymeleaf.md` | 21 | 26539 | 26324 | 226 | 11 | 0 | 279 / 279 | yes |
-| `tutorials/3.1/thymeleafspring.md` | 13 | 7954 | 7841 | 113 | 0 | 0 | 76 / 76 | yes |
+| `tutorials/3.1/usingthymeleaf.md` | 26 | 26539 | 26279 | 377 | 117 | 0 | 279 / 279 | yes |
+| `tutorials/3.1/thymeleafspring.md` | 10 | 7954 | 7856 | 107 | 9 | 0 | 76 / 76 | yes |
 | `tutorials/3.1/extendingthymeleaf.md` | 3 | 7934 | 7905 | 31 | 2 | 0 | 38 / 38 | yes |
-| `articles/layouts.md` | 1 | 3611 | 3611 | 0 | 0 | 0 | 33 / 33 | yes |
+| `articles/layouts.md` | 2 | 3611 | 3611 | 0 | 0 | 0 | 33 / 33 | yes |
 | `articles/springsecurity.md` | 1 | 673 | 673 | 0 | 0 | 0 | 7 / 7 | yes |
 | `articles/springmvcaccessdata.md` | 1 | 724 | 724 | 0 | 0 | 0 | 13 / 13 | yes |
 | `articles/springmail.md` | 1 | 1808 | 1808 | 0 | 0 | 0 | 8 / 8 | yes |
@@ -26,26 +26,26 @@ Word tokens are `\w+` runs, counted as a multiset, ignoring link and image desti
 
 ### `tutorials/3.1/usingthymeleaf.md`
 
-- Output pages: 21 plus an index page (not counted)
+- Output pages: `start/what-is-thymeleaf`, `start/natural-templates`, `start/tutorial`, `templates/expressions`, `templates/text-and-messages`, `templates/attributes`, `templates/iteration`, `templates/conditionals`, `templates/local-variables`, `templates/fragments`, `templates/components`, `templates/layouts`, `templates/inlining`, `templates/comments-and-blocks`, `templates/text-javascript-css`, `templates/decoupled-logic`, `configuration/template-engine-and-resolvers`, `configuration/template-cache`, `configuration/logging-and-troubleshooting`, `security/expression-restrictions`, `reference/attributes`, `reference/expression-syntax`, `reference/basic-objects`, `reference/utility-objects`, `reference/markup-selectors`, `reference/attribute-precedence`
 - Code blocks with a language tag: 256 of 279
 - Setext headings converted to ATX: 84
-- Tokens removed on purpose: 64 chapter titles moved to front matter, 147 heading numbers, 15 table-scroller wrapper tags
+- Tokens removed on purpose: 82 chapter titles moved to front matter, 147 heading numbers, 133 stale cross-references reworded, 15 table-scroller wrapper tags
 - Pandoc tables converted: 3; table-scroller wrapper tags removed: 6
 - Added `br` tokens from `<br>` inside table cells: 11
 
 ### `tutorials/3.1/thymeleafspring.md`
 
-- Output pages: 13 plus an index page (not counted)
+- Output pages: `start/natural-templates`, `spring/overview`, `spring/spring-standard-dialect`, `spring/controllers-and-the-model`, `spring/forms`, `spring/validation-and-errors`, `spring/conversion-and-formatting`, `spring/rendering-fragments`, `spring/manual-configuration`, `spring/spring-webflow`
 - Code blocks with a language tag: 76 of 76
 - Setext headings converted to ATX: 41
-- Tokens removed on purpose: 45 chapter titles moved to front matter, 68 heading numbers
+- Tokens removed on purpose: 28 chapter titles moved to front matter, 68 heading numbers, 11 stale cross-references reworded
 - Pandoc tables converted: 0; table-scroller wrapper tags removed: 0
 - Added `br` tokens from `<br>` inside table cells: 0
 - Stray raw HTML shown literally (wrapped in backticks): `<form:input>`
 
 ### `tutorials/3.1/extendingthymeleaf.md`
 
-- Output pages: 3 plus an index page (not counted)
+- Output pages: `extending/why-extend-thymeleaf`, `extending/dialects-and-processors`, `extending/walkthrough-extrathyme`
 - Code blocks with a language tag: 38 of 38
 - Setext headings converted to ATX: 11
 - Tokens removed on purpose: 12 chapter titles moved to front matter, 19 heading numbers
@@ -54,7 +54,7 @@ Word tokens are `\w+` runs, counted as a multiset, ignoring link and image desti
 
 ### `articles/layouts.md`
 
-- Output pages: 1
+- Output pages: `templates/layouts`, `spring/rendering-fragments`
 - Code blocks with a language tag: 33 of 33
 - Setext headings converted to ATX: 6
 - Tokens removed on purpose: none
@@ -63,7 +63,7 @@ Word tokens are `\w+` runs, counted as a multiset, ignoring link and image desti
 
 ### `articles/springsecurity.md`
 
-- Output pages: 1
+- Output pages: `spring/spring-security`
 - Code blocks with a language tag: 7 of 7
 - Setext headings converted to ATX: 4
 - Tokens removed on purpose: none
@@ -72,7 +72,7 @@ Word tokens are `\w+` runs, counted as a multiset, ignoring link and image desti
 
 ### `articles/springmvcaccessdata.md`
 
-- Output pages: 1
+- Output pages: `spring/controllers-and-the-model`
 - Code blocks with a language tag: 13 of 13
 - Setext headings converted to ATX: 6
 - Tokens removed on purpose: none
@@ -81,7 +81,7 @@ Word tokens are `\w+` runs, counted as a multiset, ignoring link and image desti
 
 ### `articles/springmail.md`
 
-- Output pages: 1
+- Output pages: `spring/email`
 - Code blocks with a language tag: 7 of 8
 - Setext headings converted to ATX: 6
 - Tokens removed on purpose: none
@@ -90,7 +90,7 @@ Word tokens are `\w+` runs, counted as a multiset, ignoring link and image desti
 
 ### `articles/standardurlsyntax.md`
 
-- Output pages: 1
+- Output pages: `templates/links-and-urls`
 - Code blocks with a language tag: 27 of 27
 - Setext headings converted to ATX: 9
 - Tokens removed on purpose: none
@@ -99,7 +99,7 @@ Word tokens are `\w+` runs, counted as a multiset, ignoring link and image desti
 
 ### `articles/thvsjsp.md`
 
-- Output pages: 1
+- Output pages: `migrate/from-jsp`
 - Code blocks with a language tag: 6 of 6
 - Setext headings converted to ATX: 5
 - Tokens removed on purpose: none
@@ -108,7 +108,7 @@ Word tokens are `\w+` runs, counted as a multiset, ignoring link and image desti
 
 ### `articles/fromhtmltohtmlviahtml.md`
 
-- Output pages: 1
+- Output pages: `start/html-history`
 - Code blocks with a language tag: 7 of 7
 - Setext headings converted to ATX: 9
 - Tokens removed on purpose: none
@@ -117,7 +117,7 @@ Word tokens are `\w+` runs, counted as a multiset, ignoring link and image desti
 
 ### `articles/standarddialect5minutes.md`
 
-- Output pages: 1
+- Output pages: `start/syntax-at-a-glance`
 - Code blocks with a language tag: 30 of 30
 - Setext headings converted to ATX: 4
 - Tokens removed on purpose: none
@@ -126,7 +126,7 @@ Word tokens are `\w+` runs, counted as a multiset, ignoring link and image desti
 
 ### `articles/sayhelloextendingthymeleaf5minutes.md`
 
-- Output pages: 1
+- Output pages: `extending/build-your-own-dialect`
 - Code blocks with a language tag: 5 of 5
 - Setext headings converted to ATX: 4
 - Tokens removed on purpose: none
@@ -135,66 +135,68 @@ Word tokens are `\w+` runs, counted as a multiset, ignoring link and image desti
 
 ### `articles/sayhelloagainextendingthymeleafevenmore5minutes.md`
 
-- Output pages: 1
+- Output pages: `extending/build-your-own-dialect`
 - Code blocks with a language tag: 11 of 11
 - Setext headings converted to ATX: 5
 - Tokens removed on purpose: none
 - Pandoc tables converted: 0; table-scroller wrapper tags removed: 0
 - Added `br` tokens from `<br>` inside table cells: 0
 
-Explained differences are only: heading numbers removed, tutorial chapter titles moved to the front matter (H1 becomes the page title), `table-scroller` wrapper tags removed, and `br` tokens from `<br>` line breaks inside converted table cells.
+Explained differences are only: heading numbers removed, headings that became a page title moved to the front matter, `table-scroller` wrapper tags removed, `br` tokens from `<br>` line breaks inside converted table cells, and the `[[replace]]` rewordings in `structure.toml`.
+
+## Coverage
+
+Every non-blank line of the normalised sources must land on exactly one page. A line that is missing or placed twice is listed under Problems.
 
 ## Output pages
 
-| Page | Words (body) |
-| --- | ---: |
-| `articles/from-html-to-html-via-html.md` | 2972 |
-| `articles/page-layouts.md` | 3611 |
-| `articles/say-hello-again-extending-thymeleaf.md` | 1159 |
-| `articles/say-hello-extending-thymeleaf.md` | 937 |
-| `articles/sending-email-with-spring.md` | 1808 |
-| `articles/spring-mvc-access-data.md` | 724 |
-| `articles/spring-security-basics.md` | 673 |
-| `articles/standard-dialects-in-5-minutes.md` | 1388 |
-| `articles/standard-url-syntax.md` | 962 |
-| `articles/thymeleaf-vs-jsp.md` | 1910 |
-| `tutorials/extending-thymeleaf/creating-our-own-dialect.md` | 3832 |
-| `tutorials/extending-thymeleaf/dialects-and-processors.md` | 3582 |
-| `tutorials/extending-thymeleaf/some-reasons-to-extend-thymeleaf.md` | 491 |
-| `tutorials/thymeleaf-spring/advanced-integration-features.md` | 437 |
-| `tutorials/thymeleaf-spring/creating-a-form.md` | 1789 |
-| `tutorials/thymeleaf-spring/integrating-thymeleaf-with-spring.md` | 145 |
-| `tutorials/thymeleaf-spring/its-still-a-prototype.md` | 98 |
-| `tutorials/thymeleaf-spring/listing-seed-starter-data.md` | 865 |
-| `tutorials/thymeleaf-spring/preface.md` | 142 |
-| `tutorials/thymeleaf-spring/rendering-template-fragments.md` | 429 |
-| `tutorials/thymeleaf-spring/spring-thyme-seed-starter-manager.md` | 1094 |
-| `tutorials/thymeleaf-spring/spring-webflow-integration.md` | 550 |
-| `tutorials/thymeleaf-spring/the-conversion-service.md` | 289 |
-| `tutorials/thymeleaf-spring/the-springstandard-dialect.md` | 558 |
-| `tutorials/thymeleaf-spring/validation-and-error-messages.md` | 815 |
-| `tutorials/thymeleaf-spring/views-and-view-resolvers.md` | 630 |
-| `tutorials/using-thymeleaf/appendix-a-expression-basic-objects.md` | 294 |
-| `tutorials/using-thymeleaf/appendix-b-expression-utility-objects.md` | 3212 |
-| `tutorials/using-thymeleaf/appendix-c-markup-selector-syntax.md` | 658 |
-| `tutorials/using-thymeleaf/appendix-d-expression-restrictions.md` | 880 |
-| `tutorials/using-thymeleaf/attribute-precedence.md` | 254 |
-| `tutorials/using-thymeleaf/comments-and-blocks.md` | 438 |
-| `tutorials/using-thymeleaf/conditional-evaluation.md` | 636 |
-| `tutorials/using-thymeleaf/decoupled-template-logic.md` | 1234 |
-| `tutorials/using-thymeleaf/inlining.md` | 1310 |
-| `tutorials/using-thymeleaf/introducing-thymeleaf.md` | 984 |
-| `tutorials/using-thymeleaf/iteration.md` | 1219 |
-| `tutorials/using-thymeleaf/local-variables.md` | 501 |
-| `tutorials/using-thymeleaf/more-on-configuration.md` | 1346 |
-| `tutorials/using-thymeleaf/setting-attribute-values.md` | 1658 |
-| `tutorials/using-thymeleaf/some-more-pages-for-our-grocery.md` | 580 |
-| `tutorials/using-thymeleaf/standard-expression-syntax.md` | 3522 |
-| `tutorials/using-thymeleaf/template-cache.md` | 353 |
-| `tutorials/using-thymeleaf/template-layout.md` | 3063 |
-| `tutorials/using-thymeleaf/textual-template-modes.md` | 1272 |
-| `tutorials/using-thymeleaf/the-good-thymes-virtual-grocery.md` | 1177 |
-| `tutorials/using-thymeleaf/using-texts.md` | 1733 |
+| Page | Words (body) | Sources |
+| --- | ---: | --- |
+| `start/what-is-thymeleaf` (manual) | 794 | `usingthymeleaf#what-is-thymeleaf`, `usingthymeleaf#what-kind-of-templates-can-thymeleaf-process`, `usingthymeleaf#dialects-the-standard-dialect` |
+| `start/natural-templates` | 290 | `usingthymeleaf#dialects-the-standard-dialect`, `thymeleafspring#its-still-a-prototype` |
+| `start/tutorial` | 1964 | `usingthymeleaf#the-good-thymes-virtual-grocery`, `usingthymeleaf#a-multi-language-welcome`, `usingthymeleaf#contexts`, `usingthymeleaf#executing-the-template-engine`, `usingthymeleaf#some-more-pages-for-our-grocery` |
+| `start/syntax-at-a-glance` | 1388 | `standarddialect5minutes` |
+| `start/html-history` | 2972 | `fromhtmltohtmlviahtml` |
+| `templates/expressions` | 3394 | `usingthymeleaf#standard-expression-syntax` |
+| `templates/text-and-messages` | 850 | `usingthymeleaf#using-thtext-and-externalizing-text`, `usingthymeleaf#more-on-texts-and-variables` |
+| `templates/attributes` | 1188 | `usingthymeleaf#setting-attribute-values` |
+| `templates/iteration` | 1219 | `usingthymeleaf#iteration` |
+| `templates/conditionals` | 636 | `usingthymeleaf#conditional-evaluation` |
+| `templates/local-variables` | 500 | `usingthymeleaf#local-variables` |
+| `templates/links-and-urls` | 962 | `standardurlsyntax` |
+| `templates/fragments` | 1837 | `usingthymeleaf#including-template-fragments`, `usingthymeleaf#removing-template-fragments` |
+| `templates/components` | 1041 | `usingthymeleaf#parameterizable-fragment-signatures`, `usingthymeleaf#flexible-layouts-beyond-mere-fragment-insertion` |
+| `templates/layouts` | 3629 | `usingthymeleaf#layout-inheritance`, `layouts` |
+| `templates/inlining` | 1310 | `usingthymeleaf#inlining` |
+| `templates/comments-and-blocks` | 438 | `usingthymeleaf#comments-and-blocks` |
+| `templates/text-javascript-css` | 1266 | `usingthymeleaf#textual-template-modes` |
+| `templates/decoupled-logic` | 1234 | `usingthymeleaf#decoupled-template-logic` |
+| `spring/overview` | 291 | `thymeleafspring#preface`, `thymeleafspring#integrating-thymeleaf-with-spring` |
+| `spring/spring-standard-dialect` | 195 | `thymeleafspring#the-springstandard-dialect` |
+| `spring/controllers-and-the-model` | 2235 | `thymeleafspring#spring-thyme-seed-starter-manager`, `thymeleafspring#listing-seed-starter-data`, `thymeleafspring#building-uris-to-controllers`, `springmvcaccessdata` |
+| `spring/forms` | 2059 | `thymeleafspring#creating-a-form`, `thymeleafspring#integration-with-requestdatavalueprocessor` |
+| `spring/validation-and-errors` | 815 | `thymeleafspring#validation-and-error-messages` |
+| `spring/conversion-and-formatting` | 597 | `thymeleafspring#the-conversion-service`, `thymeleafspring#configuring-a-conversion-service` |
+| `spring/spring-security` | 673 | `springsecurity` |
+| `spring/rendering-fragments` | 586 | `thymeleafspring#rendering-template-fragments`, `layouts#fragment-inclusion-from-spring-controller` |
+| `spring/email` | 1808 | `springmail` |
+| `spring/manual-configuration` | 1306 | `thymeleafspring#the-springstandard-dialect`, `thymeleafspring#views-and-view-resolvers`, `thymeleafspring#spring-mvc-configuration` |
+| `spring/spring-webflow` | 550 | `thymeleafspring#spring-webflow-integration` |
+| `configuration/template-engine-and-resolvers` | 1795 | `usingthymeleaf#creating-and-configuring-the-template-engine`, `usingthymeleaf#more-on-configuration` |
+| `configuration/template-cache` | 353 | `usingthymeleaf#template-cache` |
+| `configuration/logging-and-troubleshooting` | 214 | `usingthymeleaf#logging` |
+| `security/expression-restrictions` | 880 | `usingthymeleaf#appendix-d-expression-restrictions` |
+| `extending/why-extend-thymeleaf` | 491 | `extendingthymeleaf#some-reasons-to-extend-thymeleaf` |
+| `extending/dialects-and-processors` | 3582 | `extendingthymeleaf#dialects-and-processors` |
+| `extending/build-your-own-dialect` | 2096 | `sayhelloextendingthymeleaf5minutes`, `sayhelloagainextendingthymeleafevenmore5minutes` |
+| `extending/walkthrough-extrathyme` | 3827 | `extendingthymeleaf#creating-our-own-dialect` |
+| `reference/attributes` | 465 | `usingthymeleaf#setting-value-to-specific-attributes`, `usingthymeleaf#fixed-value-boolean-attributes` |
+| `reference/expression-syntax` | 121 | `usingthymeleaf#standard-expression-syntax` |
+| `reference/basic-objects` | 294 | `usingthymeleaf#appendix-a-expression-basic-objects` |
+| `reference/utility-objects` | 3212 | `usingthymeleaf#appendix-b-expression-utility-objects` |
+| `reference/markup-selectors` | 658 | `usingthymeleaf#appendix-c-markup-selector-syntax` |
+| `reference/attribute-precedence` | 254 | `usingthymeleaf#attribute-precedence` |
+| `migrate/from-jsp` | 1910 | `thvsjsp` |
 
 ## Links
 
@@ -202,29 +204,29 @@ Explained differences are only: heading numbers removed, tutorial chapter titles
 | --- | ---: |
 | absolute (not converted) | 5 |
 | external, unchanged | 33 |
-| internal | 19 |
+| internal | 30 |
 
 ## Images
 
 18 references to 17 image files.
 
-- `articles/images/layouts/header.png` x1
-- `articles/images/layouts/homeNotSignedIn.png` x1
-- `articles/images/layouts/layoutlayoutdialect.png` x1
-- `articles/images/layouts/layoutlayoutdialectlist.png` x1
-- `articles/images/springmail/inline.png` x1
-- `articles/images/thvsjsp/jsp1.png` x1
-- `articles/images/thvsjsp/jsp2.png` x1
-- `articles/images/thvsjsp/jsp3.png` x1
-- `articles/images/thvsjsp/th1.png` x1
-- `articles/images/thvsjsp/th2.png` x2
-- `articles/images/thvsjsp/th3.png` x1
-- `tutorials/extending-thymeleaf/images/extrathyme-league-table.png` x1
-- `tutorials/thymeleaf-spring/images/stsm-model.png` x1
-- `tutorials/thymeleaf-spring/images/stsm-natural-templating.png` x1
-- `tutorials/thymeleaf-spring/images/stsm-view.png` x1
-- `tutorials/using-thymeleaf/images/gtvg-model.png` x1
-- `tutorials/using-thymeleaf/images/gtvg-view.png` x1
+- `images/extendingthymeleaf/extrathyme-league-table.png` x1
+- `images/layouts/header.png` x1
+- `images/layouts/homeNotSignedIn.png` x1
+- `images/layouts/layoutlayoutdialect.png` x1
+- `images/layouts/layoutlayoutdialectlist.png` x1
+- `images/springmail/inline.png` x1
+- `images/thvsjsp/jsp1.png` x1
+- `images/thvsjsp/jsp2.png` x1
+- `images/thvsjsp/jsp3.png` x1
+- `images/thvsjsp/th1.png` x1
+- `images/thvsjsp/th2.png` x2
+- `images/thvsjsp/th3.png` x1
+- `images/thymeleafspring/stsm-model.png` x1
+- `images/thymeleafspring/stsm-natural-templating.png` x1
+- `images/thymeleafspring/stsm-view.png` x1
+- `images/usingthymeleaf/gtvg-model.png` x1
+- `images/usingthymeleaf/gtvg-view.png` x1
 
 ## Problems
 

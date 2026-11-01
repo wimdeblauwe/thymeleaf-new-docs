@@ -3,7 +3,7 @@
 
 starlight-links-validator skips relative links, and the converted pages use
 relative links on purpose (root-relative links break under the base path), so
-this script resolves every internal href and image src in the converted pages
+this script resolves every internal href and image src in the docs pages
 against dist/ and verifies that the target file and the #fragment exist.
 """
 
@@ -45,7 +45,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--dist", type=Path, default=PROJECT / "dist")
     ap.add_argument("--base", default="/thymeleaf-new-docs")
-    ap.add_argument("--scope", nargs="*", default=["docs/tutorials", "docs/articles"],
+    ap.add_argument("--scope", nargs="*", default=["docs"],
                     help="page folders (below dist) whose links are checked")
     args = ap.parse_args()
     dist, base = args.dist.resolve(), args.base.rstrip("/")

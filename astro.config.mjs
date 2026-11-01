@@ -40,20 +40,32 @@ export default defineConfig({
 					items: [{ autogenerate: { directory: 'docs/start' } }],
 				},
 				{
-					label: 'Using Thymeleaf',
-					items: [{ autogenerate: { directory: 'docs/tutorials/using-thymeleaf' } }],
+					label: 'Templates',
+					items: [{ autogenerate: { directory: 'docs/templates' } }],
 				},
 				{
-					label: 'Thymeleaf + Spring',
-					items: [{ autogenerate: { directory: 'docs/tutorials/thymeleaf-spring' } }],
+					label: 'Spring',
+					items: [{ autogenerate: { directory: 'docs/spring' } }],
 				},
 				{
-					label: 'Extending Thymeleaf',
-					items: [{ autogenerate: { directory: 'docs/tutorials/extending-thymeleaf' } }],
+					label: 'Configuration and operations',
+					items: [{ autogenerate: { directory: 'docs/configuration' } }],
 				},
 				{
-					label: 'Articles',
-					items: [{ autogenerate: { directory: 'docs/articles' } }],
+					label: 'Security',
+					items: [{ autogenerate: { directory: 'docs/security' } }],
+				},
+				{
+					label: 'Extending',
+					items: [{ autogenerate: { directory: 'docs/extending' } }],
+				},
+				{
+					label: 'Reference',
+					items: [{ autogenerate: { directory: 'docs/reference' } }],
+				},
+				{
+					label: 'Migrate',
+					items: [{ autogenerate: { directory: 'docs/migrate' } }],
 				},
 			],
 		}),

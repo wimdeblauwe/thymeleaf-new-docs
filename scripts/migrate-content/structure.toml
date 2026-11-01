@@ -1,0 +1,445 @@
+# Maps the converted sources onto the docs navigation (specifications/04-docs-structure.html).
+# migrate.py builds every page from this file, and fails if a source line lands on no page
+# or on several pages.
+#
+# A piece is "doc#heading-id", where the id is the anchor on the published page, or "doc" for
+# a whole document. Use a table for more control:
+#
+#   section       the same "doc#heading-id" string
+#   intro         true: only the text before the first subheading
+#   from, until   start or stop at the first line containing this text
+#   exclude       heading ids to leave out
+#   cuts          [from, until] text pairs to leave out
+#   heading       add this H2 above the piece (text added on purpose)
+#   keep_heading  keep or drop the piece's own heading. By default the first piece on a page
+#                 drops it, because it's the page title, and later pieces keep it.
+#   text          no source: add this text. "page:dir/slug#anchor" links to a page here.
+#
+# Set manual = true on a page once it's edited by hand. The script then leaves its file alone,
+# and it no longer tracks upstream changes to that page.
+
+# Chapter headings with no text of their own: all their sections went elsewhere.
+retired = [
+  "usingthymeleaf#introducing-thymeleaf",
+  "usingthymeleaf#using-texts",
+  "usingthymeleaf#template-layout",
+  "thymeleafspring#advanced-integration-features",
+]
+
+[[section]]
+dir = "start"
+
+[[section.page]]
+slug = "what-is-thymeleaf"
+title = "What is Thymeleaf?"
+manual = true
+pieces = [
+  "usingthymeleaf#what-is-thymeleaf",
+  "usingthymeleaf#what-kind-of-templates-can-thymeleaf-process",
+  { section = "usingthymeleaf#dialects-the-standard-dialect", until = "Most of the processors of the Standard Dialect" },
+]
+
+[[section.page]]
+slug = "natural-templates"
+title = "Natural templates"
+pieces = [
+  { section = "usingthymeleaf#dialects-the-standard-dialect", from = "Most of the processors of the Standard Dialect" },
+  "thymeleafspring#its-still-a-prototype",
+  { text = "For the history of the HTML standards, read [From HTML to HTML (via HTML)](page:start/html-history)." },
+]
+
+[[section.page]]
+slug = "tutorial"
+title = "Tutorial: build the grocery site"
+pieces = [
+  { section = "usingthymeleaf#the-good-thymes-virtual-grocery", exclude = ["creating-and-configuring-the-template-engine"] },
+  { doc = "usingthymeleaf", text = "The `buildTemplateEngine(...)` method is explained in [Creating and configuring the Template Engine](#creating-and-configuring-the-template-engine)." },
+  { section = "usingthymeleaf#a-multi-language-welcome", intro = true },
+  "usingthymeleaf#contexts",
+  "usingthymeleaf#executing-the-template-engine",
+  "usingthymeleaf#some-more-pages-for-our-grocery",
+]
+
+[[section.page]]
+slug = "syntax-at-a-glance"
+title = "Syntax at a glance"
+pieces = ["standarddialect5minutes"]
+
+# Kept out of the sidebar: the plan archives what doesn't fit Natural templates.
+[[section.page]]
+slug = "html-history"
+title = "From HTML to HTML (via HTML)"
+hidden = true
+pieces = ["fromhtmltohtmlviahtml"]
+
+[[section]]
+dir = "templates"
+
+[[section.page]]
+slug = "expressions"
+title = "Expressions"
+pieces = [
+  { section = "usingthymeleaf#standard-expression-syntax", cuts = [[" * Simple expressions:", "## Messages"]] },
+]
+
+[[section.page]]
+slug = "text-and-messages"
+title = "Text and messages"
+pieces = [
+  "usingthymeleaf#using-thtext-and-externalizing-text",
+  "usingthymeleaf#more-on-texts-and-variables",
+]
+
+[[section.page]]
+slug = "attributes"
+title = "Attributes"
+pieces = [
+  { section = "usingthymeleaf#setting-attribute-values", cuts = [
+    ["There are quite a lot of attributes like these", "## Setting more than one value"],
+    ["The following fixed-value boolean attributes exist", "## Setting the value of any attribute (default"],
+  ] },
+]
+
+[[section.page]]
+slug = "iteration"
+title = "Iteration"
+pieces = ["usingthymeleaf#iteration"]
+
+[[section.page]]
+slug = "conditionals"
+title = "Conditionals"
+pieces = ["usingthymeleaf#conditional-evaluation"]
+
+[[section.page]]
+slug = "local-variables"
+title = "Local variables"
+pieces = ["usingthymeleaf#local-variables"]
+
+[[section.page]]
+slug = "links-and-urls"
+title = "Links and URLs"
+pieces = ["standardurlsyntax"]
+
+[[section.page]]
+slug = "fragments"
+title = "Fragments"
+pieces = [
+  "usingthymeleaf#including-template-fragments",
+  "usingthymeleaf#removing-template-fragments",
+]
+
+[[section.page]]
+slug = "components"
+title = "Components"
+pieces = [
+  "usingthymeleaf#parameterizable-fragment-signatures",
+  "usingthymeleaf#flexible-layouts-beyond-mere-fragment-insertion",
+]
+
+[[section.page]]
+slug = "layouts"
+title = "Layouts"
+pieces = [
+  "usingthymeleaf#layout-inheritance",
+  { section = "layouts", exclude = ["fragment-inclusion-from-spring-controller"], heading = "Page layouts in depth" },
+]
+
+[[section.page]]
+slug = "inlining"
+title = "Inlining"
+pieces = ["usingthymeleaf#inlining"]
+
+[[section.page]]
+slug = "comments-and-blocks"
+title = "Comments and blocks"
+pieces = ["usingthymeleaf#comments-and-blocks"]
+
+[[section.page]]
+slug = "text-javascript-css"
+title = "Text, JavaScript and CSS templates"
+pieces = ["usingthymeleaf#textual-template-modes"]
+
+[[section.page]]
+slug = "decoupled-logic"
+title = "Decoupled logic"
+pieces = ["usingthymeleaf#decoupled-template-logic"]
+
+[[section]]
+dir = "spring"
+
+[[section.page]]
+slug = "overview"
+title = "Overview"
+pieces = [
+  "thymeleafspring#preface",
+  "thymeleafspring#integrating-thymeleaf-with-spring",
+]
+
+[[section.page]]
+slug = "spring-standard-dialect"
+title = "Spring Standard dialect"
+pieces = [
+  { section = "thymeleafspring#the-springstandard-dialect", until = "Note that most of the times" },
+]
+
+[[section.page]]
+slug = "controllers-and-the-model"
+title = "Controllers and the model"
+pieces = [
+  { section = "thymeleafspring#spring-thyme-seed-starter-manager", exclude = ["spring-mvc-configuration", "configuring-a-conversion-service"] },
+  "thymeleafspring#listing-seed-starter-data",
+  "thymeleafspring#building-uris-to-controllers",
+  { section = "springmvcaccessdata", heading = "Accessing data from templates" },
+]
+
+[[section.page]]
+slug = "forms"
+title = "Forms"
+pieces = [
+  "thymeleafspring#creating-a-form",
+  "thymeleafspring#integration-with-requestdatavalueprocessor",
+]
+
+[[section.page]]
+slug = "validation-and-errors"
+title = "Validation and errors"
+pieces = ["thymeleafspring#validation-and-error-messages"]
+
+[[section.page]]
+slug = "conversion-and-formatting"
+title = "Conversion and formatting"
+pieces = [
+  "thymeleafspring#the-conversion-service",
+  "thymeleafspring#configuring-a-conversion-service",
+]
+
+[[section.page]]
+slug = "spring-security"
+title = "Spring Security"
+pieces = ["springsecurity"]
+
+[[section.page]]
+slug = "rendering-fragments"
+title = "Rendering fragments"
+pieces = [
+  "thymeleafspring#rendering-template-fragments",
+  "layouts#fragment-inclusion-from-spring-controller",
+]
+
+[[section.page]]
+slug = "email"
+title = "Email"
+pieces = ["springmail"]
+
+[[section.page]]
+slug = "manual-configuration"
+title = "Manual configuration without Boot"
+pieces = [
+  { section = "thymeleafspring#the-springstandard-dialect", from = "Note that most of the times" },
+  "thymeleafspring#views-and-view-resolvers",
+  "thymeleafspring#spring-mvc-configuration",
+]
+
+[[section.page]]
+slug = "spring-webflow"
+title = "Spring WebFlow"
+pieces = ["thymeleafspring#spring-webflow-integration"]
+
+[[section]]
+dir = "configuration"
+
+[[section.page]]
+slug = "template-engine-and-resolvers"
+title = "Template engine and resolvers"
+pieces = [
+  "usingthymeleaf#creating-and-configuring-the-template-engine",
+  { section = "usingthymeleaf#more-on-configuration", exclude = ["logging"], keep_heading = false },
+]
+
+[[section.page]]
+slug = "template-cache"
+title = "Template cache"
+pieces = ["usingthymeleaf#template-cache"]
+
+[[section.page]]
+slug = "logging-and-troubleshooting"
+title = "Logging and troubleshooting"
+pieces = ["usingthymeleaf#logging"]
+
+[[section]]
+dir = "security"
+
+[[section.page]]
+slug = "expression-restrictions"
+title = "Expression restrictions"
+pieces = ["usingthymeleaf#appendix-d-expression-restrictions"]
+
+[[section]]
+dir = "extending"
+
+[[section.page]]
+slug = "why-extend-thymeleaf"
+title = "Why extend Thymeleaf"
+pieces = ["extendingthymeleaf#some-reasons-to-extend-thymeleaf"]
+
+[[section.page]]
+slug = "dialects-and-processors"
+title = "Dialects and processors"
+pieces = ["extendingthymeleaf#dialects-and-processors"]
+
+[[section.page]]
+slug = "build-your-own-dialect"
+title = "Build your own dialect"
+pieces = [
+  "sayhelloextendingthymeleaf5minutes",
+  { section = "sayhelloagainextendingthymeleafevenmore5minutes", heading = "Extending the dialect further" },
+]
+
+[[section.page]]
+slug = "walkthrough-extrathyme"
+title = "Walkthrough: extraThyme"
+pieces = ["extendingthymeleaf#creating-our-own-dialect"]
+
+[[section]]
+dir = "reference"
+
+[[section.page]]
+slug = "attributes"
+title = "Attributes"
+pieces = [
+  { section = "usingthymeleaf#setting-value-to-specific-attributes", from = "There are quite a lot of attributes like these", heading = "Specific attributes" },
+  { section = "usingthymeleaf#fixed-value-boolean-attributes", from = "The following fixed-value boolean attributes exist", heading = "Fixed-value boolean attributes" },
+]
+
+[[section.page]]
+slug = "expression-syntax"
+title = "Expression syntax"
+pieces = [
+  { section = "usingthymeleaf#standard-expression-syntax", intro = true, from = " * Simple expressions:" },
+]
+
+[[section.page]]
+slug = "basic-objects"
+title = "Basic objects"
+pieces = ["usingthymeleaf#appendix-a-expression-basic-objects"]
+
+[[section.page]]
+slug = "utility-objects"
+title = "Utility objects"
+pieces = ["usingthymeleaf#appendix-b-expression-utility-objects"]
+
+[[section.page]]
+slug = "markup-selectors"
+title = "Markup selectors"
+pieces = ["usingthymeleaf#appendix-c-markup-selector-syntax"]
+
+[[section.page]]
+slug = "attribute-precedence"
+title = "Attribute precedence"
+pieces = ["usingthymeleaf#attribute-precedence"]
+
+[[section]]
+dir = "migrate"
+
+[[section.page]]
+slug = "from-jsp"
+title = "From JSP"
+pieces = ["thvsjsp"]
+
+# Cross-references that the new structure made stale. Only these rewordings are allowed:
+# the report counts them, and fails if one stops matching.
+
+[[replace]]
+doc = "usingthymeleaf"
+old = "[Appendix D: Expression Restrictions]"
+new = "[Expression restrictions]"
+
+[[replace]]
+doc = "usingthymeleaf"
+old = "[Appendix A]"
+new = "[Basic objects]"
+
+[[replace]]
+doc = "usingthymeleaf"
+old = "[Appendix B]"
+new = "[Utility objects]"
+
+[[replace]]
+doc = "usingthymeleaf"
+old = "[Appendix C]"
+new = "[Markup selectors]"
+
+[[replace]]
+doc = "usingthymeleaf"
+old = """
+But there are more types of expressions, and more interesting details to learn
+about the ones we already know. First, let's see a quick summary of the
+Standard Expression features:"""
+new = """
+But there are more types of expressions, and more interesting details to learn
+about the ones we already know. For a quick summary of the Standard Expression
+features, see [Expression syntax](page:reference/expression-syntax)."""
+
+[[replace]]
+doc = "usingthymeleaf"
+old = "exactly what the next chapter is about"
+new = "exactly what [Attribute precedence](page:reference/attribute-precedence) is about"
+
+[[replace]]
+doc = "usingthymeleaf"
+old = "explained in the previous chapter"
+new = "explained in [Expressions](page:templates/expressions)"
+
+[[replace]]
+doc = "usingthymeleaf"
+old = "in the next chapter about the *textual template modes*"
+new = "in [Text, JavaScript and CSS templates](page:templates/text-javascript-css)"
+
+[[replace]]
+doc = "usingthymeleaf"
+old = "(see next chapter)"
+new = "(see [Text, JavaScript and CSS templates](page:templates/text-javascript-css))"
+
+[[replace]]
+doc = "usingthymeleaf"
+old = "already detailed in the previous chapter"
+new = "already detailed in [Inlining](page:templates/inlining)"
+
+[[replace]]
+doc = "usingthymeleaf"
+old = "As seen in the previous chapter"
+new = "As seen in [Inlining](page:templates/inlining)"
+
+[[replace]]
+doc = "usingthymeleaf"
+old = "Later in this tutorial there is an entire section devoted to Template Layout,"
+new = "[Fragments](page:templates/fragments) has an entire page devoted to this,"
+
+[[replace]]
+doc = "usingthymeleaf"
+old = """
+The next chapter will show us what all
+these possibilities are."""
+new = """
+[Expressions](page:templates/expressions) shows what all
+these possibilities are."""
+
+[[replace]]
+doc = "thymeleafspring"
+old = "we defined in the previous chapter"
+new = "we defined above"
+
+[[replace]]
+doc = "usingthymeleaf"
+old = "This chapter will explain the way"
+new = "This page will explain the way"
+
+[[replace]]
+doc = "usingthymeleaf"
+old = "There are quite a lot of attributes like these, each"
+new = "There are quite a lot of `th:*` attributes, each"
+
+[[replace]]
+doc = "thymeleafspring"
+old = "be using this dialect directly"
+new = "be using the SpringStandard dialect directly"
