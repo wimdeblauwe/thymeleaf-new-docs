@@ -4,10 +4,15 @@ description: Find the Thymeleaf docs for what you're trying to do.
 template: splash
 tableOfContents: false
 hero:
-  tagline: Start from what you're trying to do.
+  tagline: Start from what you're trying to do, or browse everything.
+  actions:
+    - text: Browse all docs
+      link: '#browse-all-docs'
+      variant: secondary
 ---
 
 import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+import AllDocs from '../../../components/AllDocs.astro';
 
 <CardGrid>
 	<LinkCard title="I'm new" description="Build a first page in the quickstart, then work through the tutorial." href="./start/quickstart-spring-boot/" />
@@ -17,6 +22,10 @@ import { CardGrid, LinkCard } from '@astrojs/starlight/components';
 	<LinkCard title="I want pages that update without a full refresh" description="Combine fragments with htmx and Alpine.js." href="./interactive-uis/overview/" />
 	<LinkCard title="I'm extending Thymeleaf" description="Write your own dialect and processors." href="./extending/why-extend-thymeleaf/" />
 </CardGrid>
+
+## Browse all docs
+
+<AllDocs />
 
 ## Looking for something else?
 

@@ -44,3 +44,11 @@ h1#_top,
 	height: 2rem;
 	width: auto;
 }
+
+/* The docs landing's cards are the next thing to read, so keep them close to the hero. */
+.hero {
+	padding-block: 1.5rem 0.5rem;
+}
+[data-has-hero] .content-panel {
+	padding-block: 1rem;
+}
