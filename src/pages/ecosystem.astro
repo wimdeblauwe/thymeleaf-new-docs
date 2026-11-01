@@ -1,0 +1,104 @@
+---
+import { getCollection } from 'astro:content';
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import { formatDate } from '../data/format';
+
+const categories = [
+	['official', 'Official extensions', 'Maintained by the Thymeleaf project.'],
+	['dialects', 'Dialects', 'Add template attributes and features.'],
+	['ui-components', 'UI components', 'Ready-made interface building blocks.'],
+	['interactivity', 'Interactivity', "Update pages without a full refresh. htmx and Alpine.js are companion libraries: they work with any server-rendered HTML and don't extend Thymeleaf."],
+	['front-end-tooling', 'Front-end tooling', 'CSS and JavaScript builds.'],
+	['starters', 'Starters and generators', 'Create a project quickly.'],
+	['other-integrations', 'Other integrations', 'Non-Spring environments.'],
+];
+const entries = await getCollection('ecosystem');
+const groups = categories.map(([slug, title, intro]) => ({
+	slug,
+	title,
+	intro,
+	entries: entries
+		.map(({ data }) => data)
+		.filter((entry) => entry.category === slug)
+		.sort((a, b) => a.name.localeCompare(b.name, 'en', { sensitivity: 'base' })),
+}));
+const headings = groups.map(({ slug, title }) => ({ depth: 2, slug, text: title }));
+const checked = new Date(Math.max(...entries.map(({ data }) => data.checked.getTime())));
+---
+
+<StarlightPage
+	headings={headings}
+	frontmatter={{
+		title: 'Ecosystem',
+		description: 'Official extensions and community projects for Thymeleaf, grouped by purpose.',
+	}}
+	hasSidebar={false}
+>
+	<p>
+		Community projects are listed for information, alphabetically within each group. Their own
+		maintainers run them, under their own licences, and the Thymeleaf project doesn't maintain them.
+		Links were last checked on {formatDate(checked)}.
+	</p>
+	<p>
+		To add or update a project, edit{' '}
+		<a href="https://github.com/wimdeblauwe/thymeleaf-new-docs/blob/main/src/data/ecosystem.yaml"><code>ecosystem.yaml</code></a>.
+		A project needs to be open source, directly useful with Thymeleaf, documented, and compatible
+		with a supported Thymeleaf version.
+	</p>
+
+	{
+		groups.map((group) => (
+			<>
+				<h2 id={group.slug}>{group.title}</h2>
+				<p>{group.intro}</p>
+				<dl class="projects">
+					{group.entries.map((entry) => (
+						<div>
+							<dt>
+								<a href={entry.url}>{entry.name}</a>
+								{entry.status && <span class="status">{entry.status}</span>}
+							</dt>
+							<dd>{entry.description}</dd>
+							<dd class="meta">
+								Maintainer: {entry.maintainer}. Licence: {entry.licence}.
+								{entry.compatibility && ` Works with ${entry.compatibility}.`}
+								{entry.docs && (
+									<>
+										{' '}
+										<a href={`../docs/${entry.docs}`}>Read the docs page</a>
+									</>
+								)}
+							</dd>
+						</div>
+					))}
+				</dl>
+			</>
+		))
+	}
+</StarlightPage>
+
+<style>
+	.projects > div {
+		padding-block: 0.75rem;
+		border-top: 1px solid var(--sl-color-hairline);
+	}
+	dt {
+		font-weight: 600;
+	}
+	dd {
+		margin: 0.125rem 0 0;
+	}
+	.meta {
+		color: var(--sl-color-gray-2);
+		font-size: var(--sl-text-sm);
+	}
+	.status {
+		margin-inline-start: 0.5rem;
+		padding: 0.0625rem 0.375rem;
+		border: 1px solid var(--sl-color-gray-4);
+		border-radius: 0.25rem;
+		color: var(--sl-color-gray-2);
+		font-size: var(--sl-text-xs);
+		font-weight: 500;
+	}
+</style>

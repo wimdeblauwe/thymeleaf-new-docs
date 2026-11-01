@@ -25,14 +25,21 @@ export default defineConfig({
 			customCss: ['./src/styles/starlight.css'],
 			components: {
 				Banner: './src/components/StarlightBanner.astro',
+				Header: './src/components/StarlightHeader.astro',
+				Hero: './src/components/StarlightHero.astro',
 				Footer: './src/components/StarlightFooter.astro',
 				Pagination: './src/components/StarlightPagination.astro',
 			},
 			social: [
 				{
 					icon: 'github',
-					label: 'Proposal on GitHub',
-					href: 'https://github.com/wimdeblauwe/thymeleaf-new-docs',
+					label: 'GitHub',
+					href: 'https://github.com/thymeleaf/thymeleaf',
+				},
+				{
+					icon: 'blueSky',
+					label: 'Bluesky',
+					href: 'https://bsky.app/profile/thymeleaf.org',
 				},
 			],
 			sidebar: [

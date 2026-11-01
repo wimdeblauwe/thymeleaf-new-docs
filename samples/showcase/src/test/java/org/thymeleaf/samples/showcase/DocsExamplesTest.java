@@ -33,7 +33,7 @@ import org.thymeleaf.web.servlet.JakartaServletWebApplication;
 /**
  * Runs the examples in the published pages, so a page can't drift from what Thymeleaf does.
  *
- * In any page below src/content/docs/docs:
+ * In any page below src/content/docs/docs, and in the home page's examples:
  * - a "Template" code block followed by an "Output" block must render to that output
  * - a "Rejected" code block must fail with a TemplateProcessingException
  * - a block titled with a file path must appear verbatim in that file of a sample application
@@ -42,6 +42,7 @@ class DocsExamplesTest {
 
     private static final Path REPOSITORY = Path.of("../..").toAbsolutePath().normalize();
     private static final Path DOCS = REPOSITORY.resolve("src/content/docs/docs");
+    private static final Path HOME_EXAMPLES = REPOSITORY.resolve("src/data/home-examples.md");
     private static final Pattern BLOCK = Pattern.compile(
             "^```(\\w+)(?: title=\"([^\"]*)\")?\\n(.*?)^```$", Pattern.DOTALL | Pattern.MULTILINE);
 
@@ -109,7 +110,8 @@ class DocsExamplesTest {
 
     private static List<Path> pages() throws IOException {
         try (Stream<Path> files = Files.walk(DOCS)) {
-            return files.filter(file -> file.toString().endsWith(".md")).sorted().toList();
+            return Stream.concat(files.filter(file -> file.toString().endsWith(".md")).sorted(),
+                    Stream.of(HOME_EXAMPLES)).toList();
         }
     }
 
@@ -128,7 +130,7 @@ class DocsExamplesTest {
         List<DynamicTest> tests = new ArrayList<>();
         for (Path page : pages()) {
             String text = Files.readString(page);
-            String name = DOCS.relativize(page).toString();
+            String name = REPOSITORY.relativize(page).toString();
             List<Block> blocks = blocks(page);
             for (int i = 0; i < blocks.size(); i++) {
                 Block block = blocks.get(i);

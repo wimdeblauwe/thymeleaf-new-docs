@@ -1,0 +1,151 @@
+# Each entry is one project on the ecosystem page. To add or update one, edit this file.
+#
+# Required: id, name, description, url, category, maintainer, licence, checked
+# Optional: compatibility, docs (a path below /docs/), status
+#
+# Categories: official, dialects, ui-components, interactivity, front-end-tooling,
+# starters, other-integrations. Entries sort alphabetically within a category.
+
+- id: eclipse-plugin
+  name: Thymeleaf Eclipse Plugin
+  description: Content assist for Thymeleaf attributes and expressions in the Eclipse IDE.
+  url: https://github.com/thymeleaf/thymeleaf-extras-eclipse-plugin
+  category: official
+  maintainer: Thymeleaf project
+  licence: Apache 2.0
+  checked: 2026-11-01
+
+- id: spring-security
+  name: Spring Security integration
+  description: "A dialect that adds sec:* attributes and the #authentication and #authorization objects."
+  url: https://github.com/thymeleaf/thymeleaf/tree/main/lib
+  category: official
+  maintainer: Thymeleaf project
+  licence: Apache 2.0
+  compatibility: Spring Security 5 and 6 modules
+  docs: spring/spring-security/
+  checked: 2026-11-01
+
+- id: testing-library
+  name: Thymeleaf Testing Library
+  description: Declarative tests for the view layer of Thymeleaf applications and extensions.
+  url: https://github.com/thymeleaf/thymeleaf/tree/main/lib/testing
+  category: official
+  maintainer: Thymeleaf project
+  licence: Apache 2.0
+  checked: 2026-11-01
+
+- id: layout-dialect
+  name: Thymeleaf Layout Dialect
+  description: Layouts and decorator templates, with fragments passed to the pages that use them.
+  url: https://github.com/ultraq/thymeleaf-layout-dialect
+  category: dialects
+  maintainer: Emanuel Rabina
+  licence: Apache 2.0
+  checked: 2026-11-01
+
+- id: spring-data-dialect
+  name: Thymeleaf Spring Data Dialect
+  description: Pagination and sorting components, in Bootstrap style, from Spring Data page objects.
+  url: https://github.com/jpenren/thymeleaf-spring-data-dialect
+  category: dialects
+  maintainer: Javier Pena
+  licence: Apache 2.0
+  checked: 2026-11-01
+
+- id: shiro-dialect
+  name: Thymeleaf Shiro Dialect
+  description: A dialect for Apache Shiro tags.
+  url: https://github.com/theborakompanioni/thymeleaf-extras-shiro
+  category: dialects
+  maintainer: Thebora Kompanioni
+  licence: Apache 2.0
+  checked: 2026-11-01
+
+- id: shadleaf
+  name: Shadleaf
+  description: A Spring Boot starter with server-rendered UI components, written as <sl:...> tags, with themes and layouts.
+  url: https://github.com/wimdeblauwe/shadleaf
+  category: ui-components
+  maintainer: Wim Deblauwe
+  licence: Apache 2.0, bundled icons ISC
+  compatibility: "1.0.2: Spring Boot 4, Java 17+"
+  checked: 2026-11-01
+
+- id: alpinejs
+  name: Alpine.js
+  description: A companion library for small client-side behaviour in server-rendered HTML.
+  url: https://alpinejs.dev
+  category: interactivity
+  maintainer: Alpine.js team
+  licence: MIT
+  docs: interactive-uis/overview/
+  checked: 2026-11-01
+
+- id: htmx
+  name: htmx
+  description: A companion library that swaps server-rendered HTML into the page.
+  url: https://htmx.org
+  category: interactivity
+  maintainer: Big Sky Software
+  licence: 0BSD
+  docs: interactive-uis/partial-page-updates/
+  checked: 2026-11-01
+
+- id: htmx-spring-boot
+  name: htmx-spring-boot
+  description: htmx request and response support for Spring MVC, with a Thymeleaf dialect that adds hx:* attributes.
+  url: https://github.com/wimdeblauwe/htmx-spring-boot
+  category: interactivity
+  maintainer: Wim Deblauwe
+  licence: Apache 2.0
+  compatibility: "6.0.1: htmx 4, Spring Boot 4.1. 5.x: htmx 1 and 2, Spring Boot 4.0"
+  checked: 2026-11-01
+
+- id: vite-spring-boot
+  name: vite-spring-boot
+  description: Vite builds and hot reload, with <vite:...> tags for Thymeleaf.
+  url: https://github.com/wimdeblauwe/vite-spring-boot
+  category: front-end-tooling
+  maintainer: Wim Deblauwe
+  licence: Apache 2.0
+  compatibility: "2.0.1: Spring Boot 4, Java 17+. 1.0.0: Spring Boot 3.5"
+  checked: 2026-11-01
+
+- id: bootify
+  name: Bootify.io
+  description: A code generator for Spring Boot applications with a Thymeleaf front end and a CRUD interface.
+  url: https://bootify.io/
+  category: starters
+  maintainer: Bootify.io
+  licence: Commercial service
+  checked: 2026-11-01
+
+- id: quickstart-archetype
+  name: Spring MVC Quickstart Archetype
+  description: A Maven archetype for web applications with Thymeleaf, Spring MVC, Spring Security and Bootstrap.
+  url: https://github.com/kolorobot/spring-mvc-quickstart-archetype
+  category: starters
+  maintainer: Rafał Borowiec
+  licence: Not stated
+  status: Repository archived
+  checked: 2026-11-01
+
+- id: ttcli
+  name: ttcli
+  description: A command-line tool that sets up a Spring Boot project with Thymeleaf, with options such as the Layout Dialect and live reload.
+  url: https://github.com/wimdeblauwe/ttcli
+  category: starters
+  maintainer: Wim Deblauwe
+  licence: Apache 2.0
+  checked: 2026-11-01
+
+- id: mvc-jsr371
+  name: Thymeleaf MVC 1.0 (JSR 371) integrations
+  description: Thymeleaf as a view engine for MVC 1.0, with separate CDI and Jersey extensions.
+  url: https://github.com/inbuss/thymeleaf-mvc
+  category: other-integrations
+  maintainer: Tamás Pálfalvi
+  licence: Apache 2.0
+  status: No changes since 2019
+  checked: 2026-11-01

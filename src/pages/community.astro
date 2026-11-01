@@ -1,0 +1,66 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+
+const headings = [
+	['get-help', 'Get help'],
+	['report-an-issue', 'Report an issue'],
+	['report-a-security-issue', 'Report a security issue'],
+	['contribute', 'Contribute'],
+	['learning-resources', 'Learning resources'],
+].map(([slug, text]) => ({ depth: 2, slug, text }));
+---
+
+<StarlightPage
+	headings={headings}
+	frontmatter={{
+		title: 'Community',
+		description: 'Get help with Thymeleaf, report issues, contribute and find learning resources.',
+	}}
+	hasSidebar={false}
+>
+	<h2 id="get-help">Get help</h2>
+	<p>
+		Ask usage questions on Stack Overflow with the{' '}
+		<a href="https://stackoverflow.com/questions/tagged/thymeleaf"><code>thymeleaf</code> tag</a>. The
+		maintainers and the wider community watch it. For news, follow{' '}
+		<a href="https://bsky.app/profile/thymeleaf.org">Thymeleaf on Bluesky</a>.
+	</p>
+
+	<h2 id="report-an-issue">Report an issue</h2>
+	<p>Use the repository for the part that's affected, and include a small project that reproduces the problem if you can.</p>
+	<div class="sl-table-wrapper"><table>
+		<thead><tr><th>Part</th><th>Where to report it</th></tr></thead>
+		<tbody>
+			<tr><td>Core, Spring and Spring Security modules, testing library, example applications</td><td><a href="https://github.com/thymeleaf/thymeleaf/issues">thymeleaf</a></td></tr>
+			<tr><td>Documentation</td><td><a href="https://github.com/thymeleaf/thymeleaf-docs/issues">thymeleaf-docs</a></td></tr>
+			<tr><td>Website</td><td><a href="https://github.com/thymeleaf/thymeleaf.github.com/issues">thymeleaf.github.com</a></td></tr>
+			<tr><td>Distribution package</td><td><a href="https://github.com/thymeleaf/thymeleaf-dist/issues">thymeleaf-dist</a></td></tr>
+		</tbody>
+	</table></div>
+
+	<h2 id="report-a-security-issue">Report a security issue</h2>
+	<p>
+		Email <a href="mailto:security@thymeleaf.org">security@thymeleaf.org</a>. Don't open a GitHub
+		issue for a vulnerability. The{' '}
+		<a href="https://github.com/thymeleaf/thymeleaf/blob/main/SECURITY.md">security policy</a> covers
+		disclosure, supported versions and what's in scope.
+	</p>
+
+	<h2 id="contribute">Contribute</h2>
+	<p>
+		For anything beyond an obvious or small fix, talk to the project leads first, so your work fits the
+		project's direction. Non-trivial contributions need a signed{' '}
+		<a href="https://github.com/thymeleaf/thymeleaf-org/tree/main/CLA">Contributor License Agreement</a>.
+		The <a href="https://github.com/thymeleaf/thymeleaf/blob/main/CONTRIBUTING.markdown">contributing guide</a>{' '}
+		has the details, and the{' '}
+		<a href="https://github.com/thymeleaf/thymeleaf-org/blob/main/CoC/THYMELEAF_CODE_OF_CONDUCT.markdown">code of conduct</a>{' '}
+		applies throughout the project.
+	</p>
+
+	<h2 id="learning-resources">Learning resources</h2>
+	<p>These are listed for information. The Thymeleaf project doesn't maintain them.</p>
+	<ul>
+		<li><a href="https://spring.io/guides/gs/serving-web-content">Serving Web Content with Spring MVC</a>, a Spring guide that uses Thymeleaf.</li>
+		<li><a href="https://www.wimdeblauwe.com/books/taming-thymeleaf/">Taming Thymeleaf</a>, a book by Wim Deblauwe.</li>
+	</ul>
+</StarlightPage>

@@ -1,0 +1,111 @@
+---
+import Search from '@astrojs/starlight/components/Search.astro';
+import SiteTitle from '@astrojs/starlight/components/SiteTitle.astro';
+import SocialIcons from '@astrojs/starlight/components/SocialIcons.astro';
+import ThemeSelect from '@astrojs/starlight/components/ThemeSelect.astro';
+import project from '../data/project.json';
+
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const links = [
+	{ label: 'Docs', path: 'docs/' },
+	{ label: 'Download', path: 'download/' },
+	{ label: 'Ecosystem', path: 'ecosystem/' },
+	{ label: 'Community', path: 'community/' },
+];
+const current = Astro.url.pathname.replace(/\/?$/, '/');
+---
+
+<div class="site-header">
+	<div class="brand"><SiteTitle /></div>
+	<nav class="site-nav print:hidden" aria-label="Site">
+		{
+			links.map(({ label, path }) => (
+				<a
+					href={`${base}${path}`}
+					aria-current={current.startsWith(`${base}${path}`) ? 'page' : undefined}
+				>
+					{label}
+				</a>
+			))
+		}
+	</nav>
+	<div class="search print:hidden"><Search /></div>
+	<a class="version print:hidden" href={`${base}download/`}>{project.shortVersion}</a>
+	<div class="right print:hidden">
+		<SocialIcons />
+		<ThemeSelect />
+	</div>
+</div>
+
+<style>
+	.site-header {
+		display: grid;
+		grid-template-columns: auto 1fr;
+		grid-template-areas:
+			'brand search'
+			'nav nav';
+		align-items: center;
+		gap: 0.25rem var(--sl-nav-gap);
+		height: 100%;
+	}
+	.brand {
+		grid-area: brand;
+		min-width: 0;
+	}
+	.search {
+		grid-area: search;
+		display: flex;
+		justify-content: flex-end;
+	}
+	.site-nav {
+		grid-area: nav;
+		display: flex;
+		gap: 1rem;
+		font-family: var(--font-display);
+		font-size: var(--sl-text-sm);
+	}
+	.site-nav a {
+		padding-block: 0.25rem;
+		color: var(--sl-color-gray-2);
+		text-decoration: none;
+		border-bottom: 2px solid transparent;
+	}
+	.site-nav a:hover {
+		color: var(--sl-color-white);
+	}
+	.site-nav a[aria-current='page'] {
+		color: var(--sl-color-white);
+		border-bottom-color: var(--sl-color-accent);
+	}
+	.version,
+	.right {
+		display: none;
+	}
+
+	@media (min-width: 50rem) {
+		.site-header {
+			grid-template-columns: auto auto 1fr auto auto;
+			grid-template-areas: 'brand nav search version right';
+		}
+		.site-nav {
+			gap: 1.25rem;
+			margin-inline-start: 0.5rem;
+		}
+		.version {
+			grid-area: version;
+			display: block;
+			color: var(--sl-color-gray-2);
+			font-size: var(--sl-text-xs);
+			text-decoration: none;
+		}
+		.version:hover {
+			color: var(--sl-color-white);
+		}
+		.right {
+			grid-area: right;
+			display: flex;
+			align-items: center;
+			gap: 1rem;
+		}
+	}
+</style>

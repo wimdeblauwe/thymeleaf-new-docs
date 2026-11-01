@@ -1,0 +1,16 @@
+---
+import { Code } from '@astrojs/starlight/components';
+import project from '../data/project.json';
+
+const { artifactId } = Astro.props as { artifactId: string };
+const module = project.modules.find((candidate) => candidate.artifactId === artifactId)!;
+const maven = `<dependency>
+  <groupId>${module.groupId}</groupId>
+  <artifactId>${module.artifactId}</artifactId>
+  <version>${project.version}</version>
+</dependency>`;
+const gradle = `implementation '${module.groupId}:${module.artifactId}:${project.version}'`;
+---
+
+<Code code={maven} lang="xml" title="pom.xml" />
+<Code code={gradle} lang="groovy" title="build.gradle" />

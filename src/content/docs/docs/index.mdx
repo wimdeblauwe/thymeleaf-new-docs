@@ -1,13 +1,30 @@
 ---
 title: Thymeleaf documentation
-description: An independent proposal for new Thymeleaf documentation.
+description: Find the Thymeleaf docs for what you're trying to do.
 template: splash
+tableOfContents: false
 hero:
-  tagline: Learn natural templates, then look up exactly what you need.
-  actions:
-    - text: What is Thymeleaf?
-      link: ./start/what-is-thymeleaf/
-      icon: right-arrow
+  tagline: Start from what you're trying to do.
 ---
 
-This demo is at an early stage. Content will be added section by section.
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+<CardGrid>
+	<LinkCard title="I'm new" description="Build a first page in the quickstart, then work through the tutorial." href="./start/quickstart-spring-boot/" />
+	<LinkCard title="I'm writing templates" description="Learn expressions, iteration, fragments and layouts." href="./templates/expressions/" />
+	<LinkCard title="I want to look up an attribute" description="See every th:* attribute with its behaviour." href="./reference/attributes/" />
+	<LinkCard title="I'm using Spring" description="Connect controllers, forms, validation and Spring Security." href="./spring/overview/" />
+	<LinkCard title="I want pages that update without a full refresh" description="Combine fragments with htmx and Alpine.js." href="./interactive-uis/overview/" />
+	<LinkCard title="I'm extending Thymeleaf" description="Write your own dialect and processors." href="./extending/why-extend-thymeleaf/" />
+</CardGrid>
+
+## Looking for something else?
+
+Use the search box at the top of the page to search all of the docs.
+
+Older docs and Javadoc are on thymeleaf.org:
+
+- [Thymeleaf 3.0 tutorial](https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html)
+- [Thymeleaf 2.1 tutorial](https://www.thymeleaf.org/doc/tutorials/2.1/usingthymeleaf.html)
+- [Javadoc](https://www.thymeleaf.org/apidocs/thymeleaf/3.1.5.RELEASE/)
+- [Release notes](https://www.thymeleaf.org/releasenotes.html)

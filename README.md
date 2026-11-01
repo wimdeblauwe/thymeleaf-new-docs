@@ -19,6 +19,8 @@ This project uses [Astro](https://astro.build) with [Starlight](https://starligh
 
 Pushes to `main` deploy to GitHub Pages.
 
+The current version and Maven coordinates are in `src/data/project.json`, and the ecosystem page is generated from `src/data/ecosystem.yaml`.
+
 ## Licences
 
 - **Code:** Apache License 2.0, see [LICENSE](LICENSE).

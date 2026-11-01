@@ -1,14 +1,46 @@
 @import './tokens.css';
+@import '@fontsource/ubuntu/latin-400-italic.css';
+@import '@fontsource/ubuntu/latin-500.css';
 
 /* Starlight's dark theme is the default. */
 :root {
+	--font-display: Ubuntu, var(--sl-font-system);
 	--sl-color-accent-low: #12331a;
 	--sl-color-accent: var(--brand-green-light);
 	--sl-color-accent-high: #d4efd8;
+	--demo-placeholder: #e8c37a;
+	/* Header: site name and search, then the site links. */
+	--sl-nav-height: 6rem;
 }
 
 :root[data-theme='light'] {
 	--sl-color-accent-low: #d4efd8;
 	--sl-color-accent: var(--brand-green);
 	--sl-color-accent-high: #00420a;
+	--demo-placeholder: #7a4f00;
+}
+
+@media (min-width: 50rem) {
+	:root {
+		--sl-nav-height: 3.5rem;
+	}
+}
+
+.sl-markdown-content h1,
+.sl-markdown-content h2,
+.sl-markdown-content h3,
+h1#_top,
+.site-title {
+	font-family: var(--font-display);
+	font-weight: 500;
+}
+
+.not-content a:not(.action) {
+	color: var(--sl-color-text-accent);
+}
+
+/* Starlight sizes the logo from the header height, which is taller on phones. */
+.site-title img {
+	height: 2rem;
+	width: auto;
 }

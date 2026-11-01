@@ -1,0 +1,65 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import InstallSnippets from '../components/InstallSnippets.astro';
+import { formatDate } from '../data/format';
+import project from '../data/project.json';
+
+const headings = [
+	['spring-boot', 'Spring Boot'],
+	['maven-and-gradle', 'Maven and Gradle'],
+	['distribution-packages', 'Distribution packages'],
+	['sources', 'Sources'],
+	['artwork', 'Artwork'],
+].map(([slug, text]) => ({ depth: 2, slug, text }));
+---
+
+<StarlightPage
+	headings={headings}
+	frontmatter={{
+		title: 'Download',
+		description: `Maven and Gradle coordinates, packages, sources and artwork for Thymeleaf ${project.version}.`,
+	}}
+	hasSidebar={false}
+>
+	<p>
+		Thymeleaf {project.version} is the latest version, released on {formatDate(project.releaseDate)}.
+		It requires Java SE {project.javaVersion} or newer.
+	</p>
+
+	<h2 id="spring-boot">Spring Boot</h2>
+	<p>
+		For a new project, select Thymeleaf as a dependency at{' '}
+		<a href="https://start.spring.io">Spring Initializr</a>. For an existing project, add{' '}
+		<code>spring-boot-starter-thymeleaf</code>. Either way, Boot manages the version. The{' '}
+		<a href="../docs/start/quickstart-spring-boot/">quickstart</a> has a working project.
+	</p>
+
+	<h2 id="maven-and-gradle">Maven and Gradle</h2>
+	<p>Thymeleaf's artifacts are in Maven Central. Add the core library, or a module from the table:</p>
+	<InstallSnippets artifactId="thymeleaf" />
+	<div class="sl-table-wrapper"><table>
+		<thead><tr><th>Module</th><th>Group ID</th><th>Artifact ID</th></tr></thead>
+		<tbody>
+			{project.modules.map((module) => (
+				<tr><td>{module.name}</td><td><code>{module.groupId}</code></td><td><code>{module.artifactId}</code></td></tr>
+			))}
+		</tbody>
+	</table></div>
+
+	<h2 id="distribution-packages">Distribution packages</h2>
+	<p>
+		If you don't use a build tool, download the zip with binaries, source, Javadoc and dependencies
+		from the <a href="https://github.com/thymeleaf/thymeleaf/releases/">GitHub releases</a>.
+	</p>
+
+	<h2 id="sources">Sources</h2>
+	<p>The source code is at <a href="https://github.com/thymeleaf/thymeleaf">github.com/thymeleaf/thymeleaf</a>.</p>
+
+	<h2 id="artwork">Artwork</h2>
+	<p>
+		Logo files and their usage rules are in the{' '}
+		<a href="https://github.com/thymeleaf/thymeleaf-org/tree/main/artwork/thymeleaf%202016">thymeleaf-org repository</a>.
+		The logo is © Thymeleaf and licensed under{' '}
+		<a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.
+	</p>
+</StarlightPage>
