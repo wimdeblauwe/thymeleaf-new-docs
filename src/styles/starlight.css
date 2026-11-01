@@ -1,0 +1,14 @@
+@import './tokens.css';
+
+/* Starlight's dark theme is the default. */
+:root {
+	--sl-color-accent-low: #12331a;
+	--sl-color-accent: var(--brand-green-light);
+	--sl-color-accent-high: #d4efd8;
+}
+
+:root[data-theme='light'] {
+	--sl-color-accent-low: #d4efd8;
+	--sl-color-accent: var(--brand-green);
+	--sl-color-accent-high: #00420a;
+}

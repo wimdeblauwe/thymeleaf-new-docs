@@ -1,0 +1,9 @@
+/* Brand values from the Thymeleaf logo specification. */
+:root {
+	--brand-green: #005f0f;
+	--brand-green-light: #7ccb8a;
+	--brand-leaf-grey: #aea99f;
+	--brand-light-grey: #ececec;
+	--brand-dark-grey: #333333;
+	--brand-white: #ffffff;
+}

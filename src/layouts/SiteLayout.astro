@@ -1,0 +1,57 @@
+---
+import ProposalBanner from '../components/ProposalBanner.astro';
+import ProposalFooter from '../components/ProposalFooter.astro';
+import '../styles/tokens.css';
+
+interface Props {
+	title: string;
+	description: string;
+}
+
+const { title, description } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="robots" content="noindex" />
+		<meta name="description" content={description} />
+		<link rel="icon" href={`${base}favicon.ico`} />
+		<title>{title}</title>
+	</head>
+	<body>
+		<ProposalBanner />
+		<slot />
+		<footer class="site-footer"><ProposalFooter /></footer>
+	</body>
+</html>
+
+<style is:global>
+	:root {
+		color-scheme: light dark;
+		--page-bg: var(--brand-white);
+		--page-text: var(--brand-dark-grey);
+		--page-link: var(--brand-green);
+	}
+	@media (prefers-color-scheme: dark) {
+		:root {
+			--page-bg: #17191c;
+			--page-text: var(--brand-light-grey);
+			--page-link: var(--brand-green-light);
+		}
+	}
+	body {
+		margin: 0;
+		background: var(--page-bg);
+		color: var(--page-text);
+		font: 1rem/1.6 system-ui, -apple-system, 'Segoe UI', Ubuntu, Roboto, sans-serif;
+	}
+	.site-footer {
+		max-width: 60rem;
+		margin: 3rem auto 0;
+		padding: 0 1rem 2rem;
+	}
+</style>

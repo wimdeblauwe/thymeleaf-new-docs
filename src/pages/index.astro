@@ -1,0 +1,46 @@
+---
+import { Image } from 'astro:assets';
+import SiteLayout from '../layouts/SiteLayout.astro';
+import mark from '../assets/thymeleaf-mark.png';
+
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+---
+
+<SiteLayout
+	title="Thymeleaf"
+	description="An independent proposal for a new Thymeleaf website and documentation."
+>
+	<main class="hero">
+		<Image src={mark} alt="" width={96} height={96} />
+		<h1>Thymeleaf</h1>
+		<p>A modern server-side Java template engine for web and standalone environments.</p>
+		<a class="action" href={`${base}docs/`}>Read the docs</a>
+	</main>
+</SiteLayout>
+
+<style>
+	.hero {
+		max-width: 40rem;
+		margin: 0 auto;
+		padding: 4rem 1rem 2rem;
+		text-align: center;
+	}
+	h1 {
+		margin: 1rem 0 0.5rem;
+		font-size: 2.5rem;
+		line-height: 1.2;
+	}
+	p {
+		margin: 0 0 1.5rem;
+		font-size: 1.125rem;
+	}
+	.action {
+		display: inline-block;
+		padding: 0.625rem 1.25rem;
+		border-radius: 0.375rem;
+		background: #005f0f;
+		color: #ffffff;
+		font-weight: 600;
+		text-decoration: none;
+	}
+</style>
