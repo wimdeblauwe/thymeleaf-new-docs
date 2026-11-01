@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<span th:fragment="badge(label)" class="badge" th:text="${label}">In stock</span>
+
+<span th:fragment="chip" class="chip" th:classappend="|chip-${tone ?: 'neutral'}|" th:text="${label}">New</span>
+
+<p th:fragment="price-tag(amount)" th:assert="${amount != null}" class="price"
+   th:text="${#numbers.formatDecimal(amount, 1, 2)}">4.99</p>
+
+<div th:fragment="alert(kind, message)" class="alert" th:classappend="|alert-${kind}|" role="alert">
+  <p th:text="${message}">Your basket was updated.</p>
+</div>
+
+<article th:fragment="product-card(product)" class="card">
+  <h3 th:text="${product.name}">Fresh sweet basil</h3>
+  <p th:text="${#numbers.formatDecimal(product.price, 1, 2)}">4.99</p>
+  <span th:replace="~{:: badge(${product.inStock} ? 'In stock' : 'Sold out')}">In stock</span>
+</article>
+
+<section th:fragment="panel(title, body, footer)" class="panel">
+  <h2 th:text="${title}">Panel title</h2>
+  <div class="panel-body" th:insert="${body}">Panel content</div>
+  <footer th:replace="${footer}">Default footer</footer>
+</section>
+
+</body>
+</html>

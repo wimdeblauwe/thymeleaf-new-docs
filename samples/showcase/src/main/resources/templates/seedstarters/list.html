@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Seed starters</title>
+  <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.11/dist/htmx.min.js"></script>
+</head>
+<body th:hx-headers="|{&quot;${_csrf.headerName}&quot;: &quot;${_csrf.token}&quot;}|">
+  <h1>Seed starters</h1>
+  <p><span id="seedstarter-count" th:fragment="count" hx-swap-oob="true" th:text="${total}">3</span> in total</p>
+
+  <input type="search" name="search" aria-label="Search seed starters"
+         th:value="${search}"
+         th:hx-get="@{/seedstarters}"
+         hx-trigger="input changed delay:300ms, search"
+         hx-target="#seedstarter-rows"
+         hx-swap="outerHTML"
+         hx-push-url="true">
+
+  <table>
+    <thead>
+      <tr><th>Name</th><th>Planted</th><th></th></tr>
+    </thead>
+    <tbody id="seedstarter-rows" th:fragment="rows">
+      <tr th:each="seedStarter : ${seedStarters}">
+        <td th:text="${seedStarter.name}">Greenhouse tray</td>
+        <td th:text="${seedStarter.datePlanted}">2026-03-14</td>
+        <td>
+          <button th:hx-delete="@{/seedstarters/{id}(id=${seedStarter.id})}"
+                  hx-target="closest tr"
+                  hx-swap="delete">Delete</button>
+        </td>
+      </tr>
+      <tr th:if="${seedStarters.isEmpty()}">
+        <td colspan="3">No seed starters found.</td>
+      </tr>
+    </tbody>
+  </table>
+  <p><a th:href="@{/seedstarters/new}">Add a seed starter</a></p>
+</body>
+</html>

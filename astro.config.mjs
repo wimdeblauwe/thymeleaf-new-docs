@@ -49,6 +49,10 @@ export default defineConfig({
 					items: [{ autogenerate: { directory: 'docs/spring' } }],
 				},
 				{
+					label: 'Interactive UIs',
+					items: [{ autogenerate: { directory: 'docs/interactive-uis' } }],
+				},
+				{
 					label: 'Configuration and operations',
 					items: [{ autogenerate: { directory: 'docs/configuration' } }],
 				},

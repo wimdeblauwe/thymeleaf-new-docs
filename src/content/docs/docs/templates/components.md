@@ -1,261 +1,230 @@
 ---
 title: "Components"
-description: "In order to create a more function-like mechanism for template fragments, fragments defined with th:fragment can specify a set of parameters."
+description: "Build reusable UI components from fragments, with parameters, optional values and markup passed in from the caller."
 sidebar:
   order: 9
 ---
 
-In order to create a more _function-like_ mechanism for template fragments,
-fragments defined with `th:fragment` can specify a set of parameters:
-	
-```html
-<div th:fragment="frag (onevar,twovar)">
-    <p th:text="${onevar} + ' - ' + ${twovar}">...</p>
+A component is a fragment that behaves like a function. You give it parameters, and it renders a piece of UI that looks the same everywhere you use it. Thymeleaf has no separate component feature, because fragments with parameters already do the job.
+
+This page builds up from a one-line badge to a panel that accepts markup from its caller. The examples are in [`samples/showcase`](https://github.com/wimdeblauwe/thymeleaf-new-docs/tree/main/samples/showcase) and run against Thymeleaf 3.1.5. If you haven't used fragments before, read [Fragments](../fragments/) first.
+
+## A first component
+
+Keep components together in a template file, which is a normal template with a `th:fragment` on each component:
+
+```html title="src/main/resources/templates/components/ui.html"
+<span th:fragment="badge(label)" class="badge" th:text="${label}">In stock</span>
+```
+
+Call it with `th:replace`, passing the value in brackets. The host element disappears, so a `<div>` here doesn't end up in the output:
+
+```html title="Template"
+<div th:replace="~{components/ui :: badge('Sold out')}"></div>
+```
+
+```html title="Output"
+<span class="badge">Sold out</span>
+```
+
+Use `th:insert` if you want to keep the host element.
+
+## Several parameters
+
+Pass parameters by position or by name. With names, the order doesn't matter:
+
+```html title="src/main/resources/templates/components/ui.html"
+<div th:fragment="alert(kind, message)" class="alert" th:classappend="|alert-${kind}|" role="alert">
+  <p th:text="${message}">Your basket was updated.</p>
 </div>
 ```
 
-This requires the use of one of these two syntaxes to call the fragment from
-`th:insert` or `th:replace`:
-
-```html
-<div th:replace="~{ ::frag (${value1},${value2}) }">...</div>
-<div th:replace="~{ ::frag (onevar=${value1},twovar=${value2}) }">...</div>
+```html title="Template"
+<div th:replace="~{components/ui :: alert('info', 'Delivery is free this week.')}"></div>
+<div th:replace="~{components/ui :: alert(message='Out of stock.', kind='error')}"></div>
 ```
 
-Note that order is not important in the last option:
-
-```html
-<div th:replace="~{ ::frag (twovar=${value2},onevar=${value1}) }">...</div>
-```
-
-## Fragment local variables without fragment arguments
-
-Even if fragments are defined without arguments like this:
-
-```html	
-<div th:fragment="frag">
-    ...
+```html title="Output"
+<div class="alert alert-info" role="alert">
+  <p>Delivery is free this week.</p>
+</div>
+<div class="alert alert-error" role="alert">
+  <p>Out of stock.</p>
 </div>
 ```
 
-We could use the second syntax specified above to call them (and only the second one):
+The placeholder text in `ui.html` means the file is still a [natural template](../../start/natural-templates/), so you can open it in a browser as a small catalogue of components.
 
-```html	
-<div th:replace="~{::frag (onevar=${value1},twovar=${value2})}">
+## Pass objects
+
+A parameter can be any value, and a component can use other components. `:: badge` without a template name means the same file:
+
+```html title="src/main/resources/templates/components/ui.html"
+<article th:fragment="product-card(product)" class="card">
+  <h3 th:text="${product.name}">Fresh sweet basil</h3>
+  <p th:text="${#numbers.formatDecimal(product.price, 1, 2)}">4.99</p>
+  <span th:replace="~{:: badge(${product.inStock} ? 'In stock' : 'Sold out')}">In stock</span>
+</article>
 ```
 
-This would be equivalent to a combination of `th:replace` and `th:with`:
-
-```html	
-<div th:replace="~{::frag}" th:with="onevar=${value1},twovar=${value2}">
-```
-
-**Note** that this specification of local variables for a fragment -- no matter
-whether it has an argument signature or not -- does not cause the context to be
-emptied prior to its execution. Fragments will still be able to access every
-context variable being used at the calling template like they currently are. 
-
-## th:assert for in-template assertions
-
-The `th:assert` attribute can specify a comma-separated list of expressions
-which should be evaluated and produce true for every evaluation, raising an
-exception if not.
-
-```html
-<div th:assert="${onevar},(${twovar} != 43)">...</div>
-```
-
-This comes in handy for validating parameters at a fragment signature:
-
-```html
-<header th:fragment="contentheader(title)" th:assert="${!#strings.isEmpty(title)}">...</header>
-```
-
-## Flexible layouts: beyond mere fragment insertion
-
-Thanks to *fragment expressions*, we can specify parameters for fragments that
-are not texts, numbers, bean objects... but instead fragments of markup.
-
-This allows us to create our fragments in a way such that they can be *enriched*
-with markup coming from the calling templates, resulting in a very flexible
-**template layout mechanism**.
-
-Note the use of the `title` and `links` variables in the fragment below:
-
-```html
-<head th:fragment="common_header(title,links)">
-
-  <title th:replace="${title}">The awesome application</title>
-
-  <!-- Common styles and scripts -->
-  <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/awesomeapp.css}">
-  <link rel="shortcut icon" th:href="@{/images/favicon.ico}">
-  <script type="text/javascript" th:src="@{/sh/scripts/codebase.js}"></script>
-
-  <!--/* Per-page placeholder for additional links */-->
-  <th:block th:replace="${links}" />
-
-</head>
-```
-
-We can now call this fragment like:
-
-```html
-...
-<head th:replace="~{ base :: common_header(~{::title},~{::link}) }">
-
-  <title>Awesome - Main</title>
-
-  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-  <link rel="stylesheet" th:href="@{/themes/smoothness/jquery-ui.css}">
-
-</head>
-...
-```
-
-...and the result will use the actual `<title>` and `<link>` tags from our
-calling template as the values of the `title` and `links` variables, resulting
-in our fragment being customized during insertion:
-
-```html
-...
-<head>
-
-  <title>Awesome - Main</title>
-
-  <!-- Common styles and scripts -->
-  <link rel="stylesheet" type="text/css" media="all" href="/awe/css/awesomeapp.css">
-  <link rel="shortcut icon" href="/awe/images/favicon.ico">
-  <script type="text/javascript" src="/awe/sh/scripts/codebase.js"></script>
-
-  <link rel="stylesheet" href="/awe/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/awe/themes/smoothness/jquery-ui.css">
-
-</head>
-...
-```
-
-### Using the empty fragment
-
-A special fragment expression, the *empty fragment* (`~{}`), can be used for
-specifying *no markup*. Using the previous example:
-
-```html
-<head th:replace="~{ base :: common_header(~{::title},~{}) }">
-
-  <title>Awesome - Main</title>
-
-</head>
-...
-```
-
-Note how the second parameter of the fragment (`links`) is set to the *empty
-fragment* and therefore nothing is written for the `<th:block th:replace="${links}" />`
-block:
-
-```html
-...
-<head>
-
-  <title>Awesome - Main</title>
-
-  <!-- Common styles and scripts -->
-  <link rel="stylesheet" type="text/css" media="all" href="/awe/css/awesomeapp.css">
-  <link rel="shortcut icon" href="/awe/images/favicon.ico">
-  <script type="text/javascript" src="/awe/sh/scripts/codebase.js"></script>
-
-</head>
-...
-```
-
-### Using the no-operation token
-
-The no-op can be also used as a parameter to a fragment if we just want to let
-our fragment use  its current markup as a default value. Again, using the
-`common_header` example:
-
-```html
-...
-<head th:replace="~{base :: common_header(_,~{::link})}">
-
-  <title>Awesome - Main</title>
-
-  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-  <link rel="stylesheet" th:href="@{/themes/smoothness/jquery-ui.css}">
-
-</head>
-...
-```
-
-See how the `title` argument (first argument of the `common_header` fragment) is
-set to *no-op* (`_`), which results in this part of the fragment not being
-executed at all (`title` = *no-operation*):
-
-```html
-  <title th:replace="${title}">The awesome application</title>
-```
-
-So the result is:
-
-```html
-...
-<head>
-
-  <title>The awesome application</title>
-
-  <!-- Common styles and scripts -->
-  <link rel="stylesheet" type="text/css" media="all" href="/awe/css/awesomeapp.css">
-  <link rel="shortcut icon" href="/awe/images/favicon.ico">
-  <script type="text/javascript" src="/awe/sh/scripts/codebase.js"></script>
-
-  <link rel="stylesheet" href="/awe/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/awe/themes/smoothness/jquery-ui.css">
-
-</head>
-...
-```
-
-### Advanced conditional insertion of fragments
-
-The availability of both the *empty fragment* and *no-operation token* allows us
-to perform conditional insertion of fragments in a very easy and elegant way.
-
-For example, we could do this in order to insert our `common :: adminhead`
-fragment *only* if the user is an administrator, and insert nothing (empty
-fragment) if not:
-
-```html
-...
-<div th:insert="${user.isAdmin()} ? ~{common :: adminhead} : ~{}">...</div>
-...
-```
-
-Also, we can use the *no-operation token* in order to insert a fragment only if
-the specified condition is met, but leave the markup without modifications if
-the condition is not met:
-
-```html
-...
-<div th:insert="${user.isAdmin()} ? ~{common :: adminhead} : _">
-    Welcome [[${user.name}]], click <a th:href="@{/support}">here</a> for help-desk support.
+```html title="Template"
+<div th:each="product : ${products}">
+  <article th:replace="~{components/ui :: product-card(${product})}"></article>
 </div>
-...
 ```
 
-Additionally, if we have configured our template resolvers to *check for
-existence* of the template resources –- by means of their `checkExistence` flag
--– we can use the existence of the fragment itself as the condition in a *default*
-operation:
+```html title="Output"
+<div>
+  <article class="card">
+    <h3>Fresh sweet basil</h3>
+    <p>4.99</p>
+    <span class="badge">In stock</span>
+  </article>
+</div>
+<div>
+  <article class="card">
+    <h3>Italian tomato</h3>
+    <p>1.25</p>
+    <span class="badge">Sold out</span>
+  </article>
+</div>
+```
+
+## Optional parameters
+
+A fragment with a parameter list needs a value for every parameter. This call fails, because `badge` declares one parameter and gets none:
+
+```html title="Rejected"
+<div th:replace="~{components/ui :: badge()}"></div>
+```
+
+To make a parameter optional, leave the list out of `th:fragment` and call the fragment with named parameters. Inside the fragment, use `?:` to set a default:
+
+```html title="src/main/resources/templates/components/ui.html"
+<span th:fragment="chip" class="chip" th:classappend="|chip-${tone ?: 'neutral'}|" th:text="${label}">New</span>
+```
+
+```html title="Template"
+<div th:replace="~{components/ui :: chip(label='New')}"></div>
+<div th:replace="~{components/ui :: chip(label='Sale', tone='warning')}"></div>
+```
+
+```html title="Output"
+<span class="chip chip-neutral">New</span>
+<span class="chip chip-warning">Sale</span>
+```
+
+Named parameters work like `th:with`, so the fragment can still see every variable of the caller. If the caller has its own `tone` variable and leaves the parameter out, the fragment picks that up.
+
+## Check parameters
+
+`th:assert` stops rendering if a check fails, so a mistake in a call shows up as an error and not as a broken page:
+
+```html title="src/main/resources/templates/components/ui.html"
+<p th:fragment="price-tag(amount)" th:assert="${amount != null}" class="price"
+   th:text="${#numbers.formatDecimal(amount, 1, 2)}">4.99</p>
+```
+
+```html title="Rejected"
+<p th:replace="~{components/ui :: price-tag(${missing})}"></p>
+```
+
+<a id="flexible-layouts-beyond-mere-fragment-insertion"></a>
+
+## Pass markup into a component
+
+A parameter can also be a fragment, which gives you the equivalent of slots in other component systems. Use `th:insert` or `th:replace` on the parameter inside the component:
+
+```html title="src/main/resources/templates/components/ui.html"
+<section th:fragment="panel(title, body, footer)" class="panel">
+  <h2 th:text="${title}">Panel title</h2>
+  <div class="panel-body" th:insert="${body}">Panel content</div>
+  <footer th:replace="${footer}">Default footer</footer>
+</section>
+```
+
+The caller selects markup from its own template with `~{:: selector}`:
+
+```html title="Template"
+<div th:replace="~{components/ui :: panel('Opening hours', ~{:: #hours}, ~{:: #note})}">
+  <ul id="hours">
+    <li>Monday to Saturday, 8:00 to 20:00</li>
+  </ul>
+  <footer id="note">Closed on public holidays.</footer>
+</div>
+```
+
+```html title="Output"
+<section class="panel">
+  <h2>Opening hours</h2>
+  <div class="panel-body"><ul id="hours">
+    <li>Monday to Saturday, 8:00 to 20:00</li>
+  </ul></div>
+  <footer id="note">Closed on public holidays.</footer>
+</section>
+```
+
+The selected markup lives inside the host element. That element is replaced, so the markup only appears where the component puts it, and it keeps working in a static prototype.
+
+### Leave a slot out
+
+Two special values control a slot. The no-operation token `_` keeps the component's own markup, which makes that markup a default. The empty fragment `~{}` renders nothing:
+
+```html title="Template"
+<div th:replace="~{components/ui :: panel('Newsletter', ~{:: #signup}, _)}">
+  <p id="signup">Sign up at the till.</p>
+</div>
+<div th:replace="~{components/ui :: panel('Newsletter', ~{:: #signup2}, ~{})}">
+  <p id="signup2">Sign up at the till.</p>
+</div>
+```
+
+```html title="Output"
+<section class="panel">
+  <h2>Newsletter</h2>
+  <div class="panel-body"><p id="signup">Sign up at the till.</p></div>
+  <footer>Default footer</footer>
+</section>
+<section class="panel">
+  <h2>Newsletter</h2>
+  <div class="panel-body"><p id="signup2">Sign up at the till.</p></div>
+</section>
+```
+
+## Insert a component conditionally
+
+The same two values work with a conditional expression. Use `~{}` to insert nothing if the condition isn't met:
+
+```html title="Template"
+<div th:insert="${product.inStock} ? ~{components/ui :: badge('In stock')} : ~{}"></div>
+<div th:insert="${noProducts.isEmpty()} ? _ : ~{components/ui :: badge('In stock')}">Nothing to show</div>
+```
+
+```html title="Output"
+<div><span class="badge">In stock</span></div>
+<div>Nothing to show</div>
+```
+
+If your template resolvers have `checkExistence` turned on, you can also test whether a fragment exists, and fall back to the existing markup:
 
 ```html
-...
-<!-- The body of the <div> will be used if the "common :: salutation" fragment  -->
-<!-- does not exist (or is empty).                                              -->
 <div th:insert="~{common :: salutation} ?: _">
-    Welcome [[${user.name}]], click <a th:href="@{/support}">here</a> for help-desk support.
+  Welcome [[${user.name}]]
 </div>
-...
 ```
+
+## Common mistakes
+
+- **Using the wrong number of parameters:** a fragment with a parameter list has no optional parameters. See [Optional parameters](#optional-parameters).
+- **Expecting isolation:** fragments see the caller's variables, so a typo in a parameter name can silently read an unrelated variable.
+- **Passing untrusted fragment names:** fragment expressions are evaluated, so never build one from user input. See [Escaping and XSS](../../security/escaping-and-xss/#dont-build-expressions-from-user-input).
+- **Unwrapped syntax:** `th:replace="components/ui :: badge('New')"` without `~{...}` is deprecated, and Thymeleaf logs a warning.
+
+## Related pages
+
+- [Fragments](../fragments/)
+- [Layouts](../layouts/)
+- [`th:fragment` in the attributes reference](../../reference/attributes/#th-fragment)
 
 ---
 

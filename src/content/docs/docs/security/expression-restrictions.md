@@ -2,7 +2,7 @@
 title: "Expression restrictions"
 description: "For security reasons, Thymeleaf applies restrictions on the use of certain Thymeleaf Standard Expressions depending on the context in which those expressions are evaluated."
 sidebar:
-  order: 1
+  order: 2
 ---
 
 For security reasons, Thymeleaf applies restrictions on the use of certain

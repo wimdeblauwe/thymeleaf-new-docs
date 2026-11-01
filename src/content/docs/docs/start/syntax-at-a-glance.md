@@ -2,7 +2,7 @@
 title: "Syntax at a glance"
 description: "This guide will take you through some of the most important concepts you need to know to understand a Thymeleaf template written in the Standard or SpringStandard dialects."
 sidebar:
-  order: 4
+  order: 5
 ---
 
 This guide will take you through some of the most important concepts you

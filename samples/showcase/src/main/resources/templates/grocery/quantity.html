@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Quantity picker</title>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.17.5/dist/cdn.min.js"></script>
+</head>
+<body>
+  <div x-data="{ quantity: Number($el.dataset.quantity), name: $el.dataset.name }"
+       th:data-quantity="${product.stock}"
+       th:data-name="${product.name}">
+    <p x-text="name">Fresh sweet basil</p>
+    <button type="button" @click="quantity--" :disabled="quantity === 0">Remove one</button>
+    <output x-text="quantity" th:text="${product.stock}">3</output>
+    <button type="button" x-on:click="quantity++">Add one</button>
+  </div>
+</body>
+</html>

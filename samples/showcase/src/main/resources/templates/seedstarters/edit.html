@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+  <form th:action="@{/seedstarters/{id}(id=${seedStarter.id})}" th:method="delete">
+    <button type="submit">Delete</button>
+  </form>
+  <form th:action="@{/seedstarters/{id}(id=${seedStarter.id})}" th:method="put" th:object="${seedStarter}">
+    <input type="text" th:field="*{name}">
+    <input type="date" th:field="*{datePlanted}">
+    <button type="submit">Save</button>
+  </form>
+</body>
+</html>

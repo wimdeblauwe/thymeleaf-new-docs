@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Seed starter</title>
+</head>
+<body>
+  <form action="#" th:action="@{/seedstarters}" th:object="${seedStarter}" method="post">
+    <div>
+      <label for="name">Name</label>
+      <input type="text" th:field="*{name}" th:errorclass="invalid">
+      <p th:errors="*{name}">Must not be blank</p>
+    </div>
+    <div>
+      <label for="datePlanted">Date planted</label>
+      <input type="date" th:field="*{datePlanted}" th:errorclass="invalid">
+      <p th:errors="*{datePlanted}">Must not be null</p>
+    </div>
+    <div>
+      <input type="checkbox" th:field="*{covered}">
+      <label th:for="${#ids.prev('covered')}">Covered</label>
+    </div>
+    <ul>
+      <li th:each="feature : ${allFeatures}">
+        <input type="checkbox" th:field="*{features}" th:value="${feature}">
+        <label th:for="${#ids.prev('features')}"
+               th:text="#{${'seedstarter.feature.' + feature}}">Heating</label>
+      </li>
+    </ul>
+    <ul>
+      <li th:each="type : ${allTypes}">
+        <input type="radio" th:field="*{type}" th:value="${type}">
+        <label th:for="${#ids.prev('type')}"
+               th:text="#{${'seedstarter.type.' + type}}">Wood</label>
+      </li>
+    </ul>
+    <table>
+      <tbody>
+        <tr th:each="row, rowStat : *{rows}">
+          <td>
+            <select th:field="*{rows[__${rowStat.index}__].variety}">
+              <option th:each="variety : ${allVarieties}"
+                      th:value="${variety}"
+                      th:text="${variety}">Thymus vulgaris</option>
+            </select>
+          </td>
+          <td>
+            <input type="number" th:field="*{rows[__${rowStat.index}__].seedsPerCell}">
+          </td>
+          <td>
+            <button type="submit" name="removeRow" th:value="${rowStat.index}">Remove row</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <button type="submit" name="addRow">Add row</button>
+    <button type="submit">Save</button>
+  </form>
+</body>
+</html>

@@ -42,11 +42,18 @@ pieces = [
 [[section.page]]
 slug = "natural-templates"
 title = "Natural templates"
+manual = true
 pieces = [
   { section = "usingthymeleaf#dialects-the-standard-dialect", from = "Most of the processors of the Standard Dialect" },
   "thymeleafspring#its-still-a-prototype",
   { text = "For the history of the HTML standards, read [From HTML to HTML (via HTML)](page:start/html-history)." },
 ]
+
+[[section.page]]
+slug = "quickstart-spring-boot"
+title = "Quickstart: Spring Boot"
+manual = true
+pieces = []
 
 [[section.page]]
 slug = "tutorial"
@@ -131,6 +138,7 @@ pieces = [
 [[section.page]]
 slug = "components"
 title = "Components"
+manual = true
 pieces = [
   "usingthymeleaf#parameterizable-fragment-signatures",
   "usingthymeleaf#flexible-layouts-beyond-mere-fragment-insertion",
@@ -195,6 +203,7 @@ pieces = [
 [[section.page]]
 slug = "forms"
 title = "Forms"
+manual = true
 pieces = [
   "thymeleafspring#creating-a-form",
   "thymeleafspring#integration-with-requestdatavalueprocessor",
@@ -270,6 +279,12 @@ pieces = ["usingthymeleaf#logging"]
 dir = "security"
 
 [[section.page]]
+slug = "escaping-and-xss"
+title = "Escaping and XSS"
+manual = true
+pieces = []
+
+[[section.page]]
 slug = "expression-restrictions"
 title = "Expression restrictions"
 pieces = ["usingthymeleaf#appendix-d-expression-restrictions"]
@@ -306,6 +321,7 @@ dir = "reference"
 [[section.page]]
 slug = "attributes"
 title = "Attributes"
+manual = true
 pieces = [
   { section = "usingthymeleaf#setting-value-to-specific-attributes", from = "There are quite a lot of attributes like these", heading = "Specific attributes" },
   { section = "usingthymeleaf#fixed-value-boolean-attributes", from = "The following fixed-value boolean attributes exist", heading = "Fixed-value boolean attributes" },

@@ -2,7 +2,7 @@
 title: "Tutorial: build the grocery site"
 description: "The source code for the examples shown in this, and future chapters of this guide, can be found in the Good Thymes Virtual Grocery (GTVG) example app which has two (equivalent) versions."
 sidebar:
-  order: 3
+  order: 4
 ---
 
 The source code for the examples shown in this, and future chapters of this

@@ -2,7 +2,7 @@
 title: "From HTML to HTML (via HTML)"
 description: "Knowing the internals of the HTML family of web standards is quite important when you are using software such as Thymeleaf."
 sidebar:
-  order: 5
+  order: 6
   hidden: true
 ---
 

@@ -153,7 +153,8 @@ Every non-blank line of the normalised sources must land on exactly one page. A 
 | Page | Words (body) | Sources |
 | --- | ---: | --- |
 | `start/what-is-thymeleaf` (manual) | 794 | `usingthymeleaf#what-is-thymeleaf`, `usingthymeleaf#what-kind-of-templates-can-thymeleaf-process`, `usingthymeleaf#dialects-the-standard-dialect` |
-| `start/natural-templates` | 290 | `usingthymeleaf#dialects-the-standard-dialect`, `thymeleafspring#its-still-a-prototype` |
+| `start/natural-templates` (manual) | 290 | `usingthymeleaf#dialects-the-standard-dialect`, `thymeleafspring#its-still-a-prototype` |
+| `start/quickstart-spring-boot` (manual) | 0 |  |
 | `start/tutorial` | 1964 | `usingthymeleaf#the-good-thymes-virtual-grocery`, `usingthymeleaf#a-multi-language-welcome`, `usingthymeleaf#contexts`, `usingthymeleaf#executing-the-template-engine`, `usingthymeleaf#some-more-pages-for-our-grocery` |
 | `start/syntax-at-a-glance` | 1388 | `standarddialect5minutes` |
 | `start/html-history` | 2972 | `fromhtmltohtmlviahtml` |
@@ -165,7 +166,7 @@ Every non-blank line of the normalised sources must land on exactly one page. A 
 | `templates/local-variables` | 500 | `usingthymeleaf#local-variables` |
 | `templates/links-and-urls` | 962 | `standardurlsyntax` |
 | `templates/fragments` | 1837 | `usingthymeleaf#including-template-fragments`, `usingthymeleaf#removing-template-fragments` |
-| `templates/components` | 1041 | `usingthymeleaf#parameterizable-fragment-signatures`, `usingthymeleaf#flexible-layouts-beyond-mere-fragment-insertion` |
+| `templates/components` (manual) | 1041 | `usingthymeleaf#parameterizable-fragment-signatures`, `usingthymeleaf#flexible-layouts-beyond-mere-fragment-insertion` |
 | `templates/layouts` | 3629 | `usingthymeleaf#layout-inheritance`, `layouts` |
 | `templates/inlining` | 1310 | `usingthymeleaf#inlining` |
 | `templates/comments-and-blocks` | 438 | `usingthymeleaf#comments-and-blocks` |
@@ -174,7 +175,7 @@ Every non-blank line of the normalised sources must land on exactly one page. A 
 | `spring/overview` | 291 | `thymeleafspring#preface`, `thymeleafspring#integrating-thymeleaf-with-spring` |
 | `spring/spring-standard-dialect` | 195 | `thymeleafspring#the-springstandard-dialect` |
 | `spring/controllers-and-the-model` | 2235 | `thymeleafspring#spring-thyme-seed-starter-manager`, `thymeleafspring#listing-seed-starter-data`, `thymeleafspring#building-uris-to-controllers`, `springmvcaccessdata` |
-| `spring/forms` | 2059 | `thymeleafspring#creating-a-form`, `thymeleafspring#integration-with-requestdatavalueprocessor` |
+| `spring/forms` (manual) | 2059 | `thymeleafspring#creating-a-form`, `thymeleafspring#integration-with-requestdatavalueprocessor` |
 | `spring/validation-and-errors` | 815 | `thymeleafspring#validation-and-error-messages` |
 | `spring/conversion-and-formatting` | 597 | `thymeleafspring#the-conversion-service`, `thymeleafspring#configuring-a-conversion-service` |
 | `spring/spring-security` | 673 | `springsecurity` |
@@ -185,12 +186,13 @@ Every non-blank line of the normalised sources must land on exactly one page. A 
 | `configuration/template-engine-and-resolvers` | 1795 | `usingthymeleaf#creating-and-configuring-the-template-engine`, `usingthymeleaf#more-on-configuration` |
 | `configuration/template-cache` | 353 | `usingthymeleaf#template-cache` |
 | `configuration/logging-and-troubleshooting` | 214 | `usingthymeleaf#logging` |
+| `security/escaping-and-xss` (manual) | 0 |  |
 | `security/expression-restrictions` | 880 | `usingthymeleaf#appendix-d-expression-restrictions` |
 | `extending/why-extend-thymeleaf` | 491 | `extendingthymeleaf#some-reasons-to-extend-thymeleaf` |
 | `extending/dialects-and-processors` | 3582 | `extendingthymeleaf#dialects-and-processors` |
 | `extending/build-your-own-dialect` | 2096 | `sayhelloextendingthymeleaf5minutes`, `sayhelloagainextendingthymeleafevenmore5minutes` |
 | `extending/walkthrough-extrathyme` | 3827 | `extendingthymeleaf#creating-our-own-dialect` |
-| `reference/attributes` | 465 | `usingthymeleaf#setting-value-to-specific-attributes`, `usingthymeleaf#fixed-value-boolean-attributes` |
+| `reference/attributes` (manual) | 465 | `usingthymeleaf#setting-value-to-specific-attributes`, `usingthymeleaf#fixed-value-boolean-attributes` |
 | `reference/expression-syntax` | 121 | `usingthymeleaf#standard-expression-syntax` |
 | `reference/basic-objects` | 294 | `usingthymeleaf#appendix-a-expression-basic-objects` |
 | `reference/utility-objects` | 3212 | `usingthymeleaf#appendix-b-expression-utility-objects` |
