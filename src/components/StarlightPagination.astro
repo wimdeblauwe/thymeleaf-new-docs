@@ -1,0 +1,94 @@
+---
+import { Icon } from '@astrojs/starlight/components';
+
+const { dir, pagination } = Astro.locals.starlightRoute;
+const { prev, next } = pagination;
+const isRtl = dir === 'rtl';
+---
+
+<div class="pagination-links print:hidden" dir={dir}>
+	{
+		prev && (
+			<a href={prev.href} rel="prev">
+				<Icon name={isRtl ? 'right-caret' : 'left-caret'} size="1.25rem" />
+				<span>{prev.label}</span>
+			</a>
+		)
+	}
+	{
+		next && (
+			<a href={next.href} rel="next">
+				<span>{next.label}</span>
+				<Icon name={isRtl ? 'left-caret' : 'right-caret'} size="1.25rem" />
+			</a>
+		)
+	}
+</div>
+
+<style>
+	.pagination-links {
+		display: flex;
+		justify-content: space-between;
+		gap: 1rem;
+	}
+
+	a {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.5rem;
+		border-radius: 0.5rem;
+		color: var(--sl-color-gray-2);
+		font-weight: 500;
+		text-decoration: none;
+		overflow-wrap: anywhere;
+		transition: color 0.15s;
+	}
+
+	a:hover {
+		color: var(--sl-color-white);
+	}
+
+	[rel='next'] {
+		margin-inline-start: auto;
+		text-align: end;
+	}
+
+	svg {
+		flex-shrink: 0;
+		transition: transform 0.15s;
+	}
+
+	[rel='prev']:hover svg {
+		transform: translateX(-0.25rem);
+	}
+
+	[rel='next']:hover svg {
+		transform: translateX(0.25rem);
+	}
+
+	[dir='rtl'] [rel='prev']:hover svg {
+		transform: translateX(0.25rem);
+	}
+
+	[dir='rtl'] [rel='next']:hover svg {
+		transform: translateX(-0.25rem);
+	}
+
+	@media (min-width: 50rem) {
+		a {
+			font-size: var(--sl-text-lg);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		a,
+		svg {
+			transition: none;
+		}
+
+		a:hover svg {
+			transform: none;
+		}
+	}
+</style>

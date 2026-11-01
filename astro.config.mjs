@@ -26,6 +26,7 @@ export default defineConfig({
 			components: {
 				Banner: './src/components/StarlightBanner.astro',
 				Footer: './src/components/StarlightFooter.astro',
+				Pagination: './src/components/StarlightPagination.astro',
 			},
 			social: [
 				{
