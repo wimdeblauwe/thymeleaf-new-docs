@@ -1,0 +1,150 @@
+---
+title: "Conditional Evaluation"
+description: "Sometimes you will need a fragment of your template to only appear in the result if a certain condition is met."
+sidebar:
+  order: 7
+---
+
+## Simple conditionals: "if" and "unless"
+
+Sometimes you will need a fragment of your template to only appear in the result
+if a certain condition is met. 
+
+For example, imagine we want to show in our product table a column with the
+number of comments that exist for each product and, if there are any comments, a
+link to the comment detail page for that product.
+
+In order to do this, we would use the `th:if` attribute:
+
+```html
+<table>
+  <tr>
+    <th>NAME</th>
+    <th>PRICE</th>
+    <th>IN STOCK</th>
+    <th>COMMENTS</th>
+  </tr>
+  <tr th:each="prod : ${prods}" th:class="${prodStat.odd}? 'odd'">
+    <td th:text="${prod.name}">Onions</td>
+    <td th:text="${prod.price}">2.41</td>
+    <td th:text="${prod.inStock}? #{true} : #{false}">yes</td>
+    <td>
+      <span th:text="${#lists.size(prod.comments)}">2</span> comment/s
+      <a href="comments.html" 
+         th:href="@{/product/comments(prodId=${prod.id})}" 
+         th:if="${not #lists.isEmpty(prod.comments)}">view</a>
+    </td>
+  </tr>
+</table>
+```
+
+Quite a lot of things to see here, so let's focus on the important line:
+
+```html
+<a href="comments.html"
+   th:href="@{/product/comments(prodId=${prod.id})}" 
+   th:if="${not #lists.isEmpty(prod.comments)}">view</a>
+```
+
+This will create a link to the comments page (with URL `/product/comments`) with
+a `prodId` parameter set to the `id` of the product, but only if the product has
+any comments.
+
+Let's have a look at the resulting markup:
+
+```html
+<table>
+  <tr>
+    <th>NAME</th>
+    <th>PRICE</th>
+    <th>IN STOCK</th>
+    <th>COMMENTS</th>
+  </tr>
+  <tr>
+    <td>Fresh Sweet Basil</td>
+    <td>4.99</td>
+    <td>yes</td>
+    <td>
+      <span>0</span> comment/s
+    </td>
+  </tr>
+  <tr class="odd">
+    <td>Italian Tomato</td>
+    <td>1.25</td>
+    <td>no</td>
+    <td>
+      <span>2</span> comment/s
+      <a href="/gtvg/product/comments?prodId=2">view</a>
+    </td>
+  </tr>
+  <tr>
+    <td>Yellow Bell Pepper</td>
+    <td>2.50</td>
+    <td>yes</td>
+    <td>
+      <span>0</span> comment/s
+    </td>
+  </tr>
+  <tr class="odd">
+    <td>Old Cheddar</td>
+    <td>18.75</td>
+    <td>yes</td>
+    <td>
+      <span>1</span> comment/s
+      <a href="/gtvg/product/comments?prodId=4">view</a>
+    </td>
+  </tr>
+</table>
+```
+
+Perfect! That's exactly what we wanted.
+
+Note that the `th:if` attribute will not only evaluate _boolean_ conditions.
+Its capabilities go a little beyond that, and it will evaluate the specified
+expression as `true` following these rules:
+
+ * If value is not null:
+    * If value is a boolean and is `true`.
+    * If value is a number and is non-zero
+    * If value is a character and is non-zero
+    * If value is a String and is not "false", "off" or "no"
+    * If value is not a boolean, a number, a character or a String.
+ * (If value is null, th:if will evaluate to false).
+
+Also, `th:if` has an inverse attribute, `th:unless`, which we could have used in
+the previous example instead of using a `not` inside the OGNL expression:
+
+```html
+<a href="comments.html"
+   th:href="@{/comments(prodId=${prod.id})}" 
+   th:unless="${#lists.isEmpty(prod.comments)}">view</a>
+```
+
+## Switch statements
+
+There is also a way to display content conditionally using the equivalent of a
+_switch_ structure in Java: the `th:switch` / `th:case` attribute set.
+
+```html
+<div th:switch="${user.role}">
+  <p th:case="'admin'">User is an administrator</p>
+  <p th:case="#{roles.manager}">User is a manager</p>
+</div>
+```
+
+Note that as soon as one `th:case` attribute is evaluated as `true`, every other
+`th:case` attribute in the same switch context is evaluated as `false`.
+
+The default option is specified as `th:case="*"`:
+
+```html
+<div th:switch="${user.role}">
+  <p th:case="'admin'">User is an administrator</p>
+  <p th:case="#{roles.manager}">User is a manager</p>
+  <p th:case="*">User is some other thing</p>
+</div>
+```
+
+---
+
+*Adapted from the [Thymeleaf documentation](https://www.thymeleaf.org/doc/tutorials/3.1/usingthymeleaf.html#conditional-evaluation) at thymeleaf.org, licensed under [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/).*
