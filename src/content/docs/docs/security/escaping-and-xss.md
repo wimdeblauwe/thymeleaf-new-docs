@@ -131,7 +131,7 @@ Link expressions encode parameters, so a value can't escape from them:
 <a href="/search?q=%3Cb%3ETasty%3C/b%3E%20%26%20fresh">Search</a>
 ```
 
-The base of a URL is different. A plain variable expression in `th:href` isn't checked, so a `javascript:` URL from a user passes straight through. Here `website` is `javascript:alert(1)`:
+The base of a URL is different. Thymeleaf writes the URL your application gives it. Here `website` is a value a user entered, `javascript:alert(1)`:
 
 ```html title="Template"
 <a th:href="${website}">Website</a>
@@ -141,13 +141,7 @@ The base of a URL is different. A plain variable expression in `th:href` isn't c
 <a href="javascript:alert(1)">Website</a>
 ```
 
-A link expression rejects a base that starts with `javascript:`, in any case:
-
-```html title="Rejected"
-<a th:href="@{${website}}">Website</a>
-```
-
-So prefer `@{...}`, but treat the check as a safety net. It looks for that one prefix, and other schemes such as `data:` pass. Validate user-supplied URLs on the server, and allow only `http` and `https`.
+Validating URLs that come from users is your application's job, as it is for any other user input. Check them on the server, and allow only the schemes you expect, such as `http` and `https`.
 
 ## Restricted expression mode
 

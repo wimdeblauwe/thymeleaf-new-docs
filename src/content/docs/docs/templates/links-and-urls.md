@@ -220,6 +220,8 @@ for example a variable expression:
 <a th:href="@{${detailsURL}(id=${order.id})}">
 ```
 
+Link expressions don't allow the `javascript:` scheme.
+
 ...or an externalized/internationalized text:
 
 ```html

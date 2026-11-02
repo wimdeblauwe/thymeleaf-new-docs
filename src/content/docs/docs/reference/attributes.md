@@ -154,7 +154,7 @@ Set a URL attribute. Use a [link expression](../../templates/links-and-urls/), w
 ```
 
 :::caution
-`th:href="${url}"` doesn't check the URL, and `@{...}` only rejects `javascript:`. Validate a user-supplied URL before you output it. See [URLs](../../security/escaping-and-xss/#urls).
+Thymeleaf doesn't validate URLs. Validate a user-supplied URL in your application before you output it. See [URLs](../../security/escaping-and-xss/#urls).
 :::
 
 <a id="th-value"></a>
